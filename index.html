@@ -1,2161 +1,1570 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Planet Computer - Cabang Sumedang | Katalog Produk & Promo</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: "class"
-    };
-  </script>
-  <script>
-    //<![CDATA[
-    (function () {
-      const savedTheme = localStorage.getItem("pc_theme");
-      if (savedTheme === "dark") {
-        document.documentElement.classList.add("dark");
-      }
-    })();
-    //]]>
-  </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <title>E-Catalog Planet Computer Sumedang | Laptop, PC, Printer & Aksesoris</title>
+  <meta name="description" content="Katalog resmi Planet Computer Cabang Sumedang - Plaza Asia Lt. GF No. 19-20, Jl. Mayor Abdurahman No. 225, Sumedang. Buka 09.00 - 20.45 WIB." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
-    .no-scrollbar::-webkit-scrollbar { display: none; }
-    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    :root {
+      --bg: #f4f6fb;
+      --surface: #ffffff;
+      --surface-2: #f8fafc;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --primary: #1d4ed8;
+      --primary-hover: #1e40af;
+      --primary-soft: #eff6ff;
+      --accent: #f97316;
+      --success: #16a34a;
+      --danger: #dc2626;
+      --shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+      --radius: 14px;
+    }
+
+    [data-theme="dark"] {
+      --bg: #0b1120;
+      --surface: #111827;
+      --surface-2: #1e293b;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border: #1f2937;
+      --primary: #3b82f6;
+      --primary-hover: #60a5fa;
+      --primary-soft: rgba(59, 130, 246, 0.14);
+      --accent: #fb923c;
+      --success: #22c55e;
+      --danger: #ef4444;
+      --shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      transition: background 0.25s ease, color 0.25s ease;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, input, select {
+      font-family: inherit;
+    }
+
+    /* Top Info Bar */
+    .topbar {
+      background: #0f172a;
+      color: #e2e8f0;
+      font-size: 12.5px;
+      padding: 8px 16px;
+    }
+
+    .topbar-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .store-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+    }
+
+    .status-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--danger);
+      display: inline-block;
+    }
+
+    .status-dot.open {
+      background: var(--success);
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.22);
+    }
+
+    .topbar-links {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .topbar-links a:hover {
+      color: #60a5fa;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .header-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-badge {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #1d4ed8, #0ea5e9);
+      color: #fff;
+      font-weight: 800;
+      font-size: 17px;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+
+    .brand-title h1 {
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-title p {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 220px;
+      max-width: 480px;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+    }
+
+    .search-box input:focus {
+      border-color: var(--primary);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-btn {
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      padding: 9px 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .icon-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .cart-badge {
+      background: var(--primary);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 999px;
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 18px 16px 64px;
+    }
+
+    /* Banner Slider */
+    .banner-section {
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    .banner-track {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 14px;
+    }
+
+    .banner-card {
+      background: linear-gradient(135deg, #1e3a8a, #0284c7);
+      color: #fff;
+      border-radius: var(--radius);
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s;
+    }
+
+    .banner-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .banner-card img {
+      width: 76px;
+      height: 76px;
+      object-fit: contain;
+      background: #fff;
+      border-radius: 10px;
+      padding: 6px;
+      flex-shrink: 0;
+    }
+
+    .banner-tag {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+      margin-bottom: 4px;
+    }
+
+    .banner-card h3 {
+      font-size: 14.5px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .banner-price {
+      font-size: 15px;
+      font-weight: 800;
+      color: #fde047;
+    }
+
+    /* Filter Bar */
+    .filters {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px;
+      margin-bottom: 18px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 10px;
+      align-items: end;
+      box-shadow: var(--shadow);
+    }
+
+    .filter-group label {
+      display: block;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .filter-group select {
+      width: 100%;
+      padding: 9px 10px;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      font-size: 13.5px;
+      outline: none;
+    }
+
+    .brand-pills {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 16px;
+      scrollbar-width: thin;
+    }
+
+    .brand-pill {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .brand-pill.active,
+    .brand-pill:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+
+    .catalog-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      font-size: 13px;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* Product Grid */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(235px, 1fr));
+      gap: 16px;
+    }
+
+    .product-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--primary);
+    }
+
+    .product-thumb {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      background: #ffffff;
+      display: grid;
+      place-items: center;
+      padding: 12px;
+      cursor: pointer;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .product-thumb img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .badges {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .badge {
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      color: #fff;
+      width: fit-content;
+    }
+
+    .badge-promo { background: var(--danger); }
+    .badge-best { background: var(--accent); }
+
+    .views-chip {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(15, 23, 42, 0.72);
+      color: #fff;
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 6px;
+    }
+
+    .product-body {
+      padding: 13px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 6px;
+    }
+
+    .product-cat {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .product-title {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.35;
+      cursor: pointer;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .product-title:hover {
+      color: var(--primary);
+    }
+
+    .product-sku {
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+
+    .price-block {
+      margin-top: auto;
+      padding-top: 6px;
+    }
+
+    .price-old {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-decoration: line-through;
+    }
+
+    .price-main {
+      font-size: 16.5px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .promo-note {
+      font-size: 11.5px;
+      color: var(--success);
+      font-weight: 600;
+    }
+
+    .card-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      transition: opacity 0.2s, background 0.2s;
+    }
+
+    .btn:hover { opacity: 0.92; }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-outline {
+      background: var(--surface-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.65);
+      z-index: 60;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 780px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 20px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 12px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+    }
+
+    .modal-close {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .modal-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 18px;
+    }
+
+    @media (max-width: 680px) {
+      .modal-grid { grid-template-columns: 1fr; }
+    }
+
+    .gallery-main {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      aspect-ratio: 4/3;
+      display: grid;
+      place-items: center;
+    }
+
+    .gallery-main img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .gallery-thumbs {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    .gallery-thumbs img {
+      width: 52px;
+      height: 52px;
+      object-fit: contain;
+      background: #fff;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      padding: 4px;
+      cursor: pointer;
+    }
+
+    .gallery-thumbs img.active {
+      border-color: var(--primary);
+    }
+
+    .spec-box {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+      font-size: 13px;
+      white-space: pre-line;
+      margin: 12px 0;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    /* Installment Calculator */
+    .installment-box {
+      background: var(--primary-soft);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      margin-top: 12px;
+    }
+
+    .installment-box h4 {
+      font-size: 13.5px;
+      margin-bottom: 8px;
+    }
+
+    .installment-controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .installment-controls select {
+      padding: 7px 9px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 12.5px;
+    }
+
+    .installment-result {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .marketplace-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .mp-btn {
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .mp-shopee { background: #ee4d2d; }
+    .mp-tokped { background: #03ac0e; }
+    .mp-wa { background: #16a34a; }
+
+    /* Cart Drawer */
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13.5px;
+    }
+
+    .qty-controls {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .qty-controls button {
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    /* Back to Top */
+    #backToTop {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 35;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      font-size: 18px;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      display: none;
+    }
+
+    .state-message {
+      text-align: center;
+      padding: 48px 16px;
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      padding: 20px 16px;
+      font-size: 13px;
+      color: var(--text-muted);
+      text-align: center;
+    }
   </style>
 </head>
-<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 antialiased flex flex-col min-h-screen transition-colors duration-200">
+<body>
 
-  <!-- NAVBAR -->
-  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800 transition-colors">
-    <div class="max-w-7xl mx-auto px-3 sm:px-4 py-3 flex flex-col lg:flex-row lg:items-center justify-between gap-3">
-      <div class="flex items-start sm:items-center justify-between gap-2">
-        <div class="min-w-0">
-          <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-            <h1 class="text-lg sm:text-xl font-extrabold tracking-tight text-slate-900 dark:text-white" id="storeTitle">Planet Computer</h1>
-            <span id="storeBranch" class="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-blue-50 dark:bg-blue-950/70 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800 rounded-md">
-              Cabang Sumedang
-            </span>
-            <span id="storeStatusBadge" class="inline-flex items-center gap-1.5 px-2 py-0.5 text-[10px] font-bold rounded-md bg-emerald-50 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-              <span id="storeStatusText">Buka</span>
-            </span>
-          </div>
-          <div class="flex flex-wrap items-center gap-x-2 gap-y-1 mt-1">
-            <p class="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 leading-snug" id="storeAddress">
-              Jl. Mayor Abdurahman No. 225, Plaza Asia Lt. GF No. 19-20
-            </p>
-            <a id="headerMapsBtn" href="#" target="_blank" rel="noopener noreferrer"
-              class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-blue-600 hover:bg-blue-700 text-white transition whitespace-nowrap shadow-xs">
-              <svg class="w-3 h-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-              <span>Petunjuk Arah</span>
-            </a>
-          </div>
+  <!-- Top Store Info Bar -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="store-status">
+        <span class="status-dot" id="statusDot"></span>
+        <span id="storeStatusText">Memeriksa jam operasional...</span>
+        <span>• Jam Buka: <strong id="operatingHoursLabel">09.00 - 20.45 WIB</strong></span>
+      </div>
+      <div class="topbar-links">
+        <a href="https://maps.google.com/?q=Plaza+Asia+Sumedang+Jl.+Mayor+Abdurahman+No.+225" target="_blank" rel="noopener">
+          📍 Plaza Asia Lt. GF No. 19-20, Sumedang
+        </a>
+        <a id="topWaLink" href="#" target="_blank" rel="noopener">💬 Hubungi Admin WA</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="header-inner">
+      <a href="?" class="brand">
+        <div class="brand-badge">PC</div>
+        <div class="brand-title">
+          <h1>PLANET COMPUTER</h1>
+          <p>Sumedang • Laptop, PC, Printer &amp; Aksesoris</p>
         </div>
+      </a>
 
-        <!-- Tombol Aksi Mobile (Tema & Keranjang) -->
-        <div class="flex lg:hidden items-center gap-1.5 flex-shrink-0">
-          <button type="button" onclick="toggleTheme()" aria-label="Ganti tema gelap atau terang"
-            class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-amber-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 transition">
-            <svg class="w-4 h-4 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-            </svg>
-            <svg class="w-4 h-4 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-            </svg>
-          </button>
-
-          <button type="button" onclick="openCartDrawer()" aria-label="Buka keranjang belanja"
-            class="relative p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 transition">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-            </svg>
-            <span id="headerCartBadgeMobile" class="hidden absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 rounded-full bg-emerald-600 text-white text-[10px] font-extrabold flex items-center justify-center">0</span>
-          </button>
-        </div>
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Cari laptop, printer, tipe, atau nomor SKU..." />
       </div>
 
-      <div class="flex items-center gap-2.5 w-full lg:w-auto">
-        <div class="relative flex-1 lg:w-80">
-          <input type="text" id="searchInput" placeholder="Cari produk, spek, atau SKU..."
-            class="w-full pl-9 pr-4 py-2 text-sm bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 border border-slate-200 dark:border-slate-700 rounded-xl focus:bg-white dark:focus:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-600 transition" />
-          <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 11A6 6 0 115 11a6 6 0 0112 0z" />
-          </svg>
-        </div>
-
-        <!-- Tombol Keranjang Desktop -->
-        <button type="button" onclick="openCartDrawer()" aria-label="Buka keranjang belanja"
-          class="hidden lg:inline-flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 transition whitespace-nowrap">
-          <svg class="w-4 h-4 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-          </svg>
-          <span>Keranjang</span>
-          <span id="headerCartBadgeDesktop" class="px-1.5 py-0.5 rounded-full bg-emerald-600 text-white text-[10px] font-extrabold">0</span>
-        </button>
-
-        <!-- Tombol Ganti Tema Desktop -->
-        <button type="button" onclick="toggleTheme()" aria-label="Ganti tema gelap atau terang" title="Ganti Tema Gelap / Terang"
-          class="hidden lg:inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-amber-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 transition whitespace-nowrap">
-          <svg class="w-4 h-4 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-          </svg>
-          <svg class="w-4 h-4 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-          </svg>
-          <span class="dark:hidden">Gelap</span>
-          <span class="hidden dark:inline">Terang</span>
+      <div class="header-actions">
+        <button class="icon-btn" id="themeToggle" title="Ganti Tema">🌓 Tema</button>
+        <button class="icon-btn" id="openCartBtn">
+          🛒 Keranjang <span class="cart-badge" id="cartCount">0</span>
         </button>
       </div>
     </div>
   </header>
 
-  <main class="max-w-7xl mx-auto px-3 sm:px-4 py-5 sm:py-6 space-y-7 sm:space-y-8 flex-1 w-full">
-
-    <!-- 1. LANDING PAGE SLIDER (PRODUK UNGGULAN + BANNER PROMO NON-PRODUK) -->
-    <section class="relative rounded-2xl overflow-hidden bg-slate-900 shadow-lg border border-slate-800/50">
-      <div id="heroSlider" class="flex transition-transform duration-500 ease-out"></div>
-      <button onclick="prevSlide()" aria-label="Slide sebelumnya" class="absolute left-2.5 sm:left-3 top-1/2 -translate-y-1/2 bg-white/85 hover:bg-white text-slate-900 p-1.5 sm:p-2 rounded-full shadow z-20">&#10094;</button>
-      <button onclick="nextSlide()" aria-label="Slide berikutnya" class="absolute right-2.5 sm:right-3 top-1/2 -translate-y-1/2 bg-white/85 hover:bg-white text-slate-900 p-1.5 sm:p-2 rounded-full shadow z-20">&#10095;</button>
-      <div id="sliderDots" class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-20"></div>
+  <main class="container">
+    <!-- Highlight Banner Slider -->
+    <section class="banner-section" id="bannerSection">
+      <div class="banner-track" id="bannerTrack"></div>
     </section>
 
-    <!-- 2. BARU SAJA DILIHAT PEMBELI LAIN -->
-    <section id="mostViewedSection" class="hidden">
-      <div class="flex items-center justify-between mb-3">
-        <div class="flex items-center gap-2">
-          <span class="px-2 py-0.5 text-[10px] sm:text-xs font-bold uppercase tracking-wider bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 border border-amber-200/70 dark:border-amber-800/60 rounded-md">Trending</span>
-          <h2 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">Baru Saja Dilihat Pembeli Lain</h2>
-        </div>
-        <span class="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 whitespace-nowrap">Geser &rarr;</span>
-      </div>
-      <div id="mostViewedContainer" class="flex gap-3 sm:gap-4 overflow-x-auto no-scrollbar pb-2"></div>
-    </section>
+    <!-- Brand Quick Pills -->
+    <div class="brand-pills" id="brandPills"></div>
 
-    <!-- 3. BARIS MENU FILTER RINGKAS -->
-    <section class="space-y-3">
-      <div class="flex items-center gap-2 sm:gap-2.5 overflow-x-auto no-scrollbar pb-1">
-        <!-- Filter Tipe Produk -->
-        <div class="relative flex-shrink-0">
-          <select id="typeFilter" aria-label="Filter tipe produk"
-            class="appearance-none bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:border-blue-400 dark:hover:border-blue-500 text-slate-700 dark:text-slate-200 text-xs font-semibold pl-3.5 sm:pl-4 pr-8 sm:pr-9 py-2 rounded-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition shadow-2xs">
-            <option value="SEMUA">Semua Tipe Produk</option>
-          </select>
-          <svg class="w-3.5 h-3.5 text-slate-400 pointer-events-none absolute right-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-          </svg>
-        </div>
-
-        <!-- Filter Merek Otomatis -->
-        <div class="relative flex-shrink-0">
-          <select id="brandFilter" aria-label="Filter merek produk"
-            class="appearance-none bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:border-blue-400 dark:hover:border-blue-500 text-slate-700 dark:text-slate-200 text-xs font-semibold pl-3.5 sm:pl-4 pr-8 sm:pr-9 py-2 rounded-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition shadow-2xs">
-            <option value="ALL">Semua Merek</option>
-          </select>
-          <svg class="w-3.5 h-3.5 text-slate-400 pointer-events-none absolute right-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-          </svg>
-        </div>
-
-        <!-- Filter Rentang Harga -->
-        <div class="relative flex-shrink-0">
-          <select id="priceRangeFilter" aria-label="Filter rentang harga"
-            class="appearance-none bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:border-blue-400 dark:hover:border-blue-500 text-slate-700 dark:text-slate-200 text-xs font-semibold pl-3.5 sm:pl-4 pr-8 sm:pr-9 py-2 rounded-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition shadow-2xs">
-            <option value="all">Semua Harga</option>
-            <option value="installment_eligible">Bisa Cicilan (&gt; 1 Juta)</option>
-            <option value="under_5m">Di Bawah 5 Juta</option>
-            <option value="5m_10m">5 - 10 Juta</option>
-            <option value="above_10m">Di Atas 10 Juta</option>
-          </select>
-          <svg class="w-3.5 h-3.5 text-slate-400 pointer-events-none absolute right-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-          </svg>
-        </div>
-
-        <!-- Filter Harga Promo -->
-        <label class="flex-shrink-0 inline-flex items-center gap-2 text-xs font-medium bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 px-3.5 sm:px-4 py-2 rounded-full cursor-pointer hover:bg-rose-50/50 dark:hover:bg-rose-950/30 hover:border-rose-300 dark:hover:border-rose-700 transition shadow-2xs">
-          <input type="checkbox" id="promoOnlyFilter" class="rounded text-rose-600 focus:ring-rose-500" />
-          <span class="text-rose-600 dark:text-rose-400 font-bold">Harga Promo</span>
-        </label>
-
-        <!-- Urutkan -->
-        <div class="relative flex-shrink-0">
-          <select id="sortSelect" aria-label="Urutkan produk"
-            class="appearance-none bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:border-blue-400 dark:hover:border-blue-500 text-slate-700 dark:text-slate-200 text-xs font-semibold pl-3.5 sm:pl-4 pr-8 sm:pr-9 py-2 rounded-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition shadow-2xs">
-            <option value="default">Urutkan: Default</option>
-            <option value="price_asc">Harga Termurah</option>
-            <option value="price_desc">Harga Termahal</option>
-            <option value="views_desc">Paling Banyak Dilihat</option>
-          </select>
-          <svg class="w-3.5 h-3.5 text-slate-400 pointer-events-none absolute right-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-          </svg>
-        </div>
+    <!-- Filter Controls -->
+    <section class="filters">
+      <div class="filter-group">
+        <label for="categoryFilter">Tipe Produk</label>
+        <select id="categoryFilter">
+          <option value="ALL">Semua Tipe Produk</option>
+        </select>
       </div>
 
-      <div class="flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500 dark:text-slate-400">
-        <div class="flex items-center gap-2.5">
-          <p>Menampilkan <strong id="productCount" class="text-slate-800 dark:text-slate-200">0</strong> produk tersedia</p>
-          <button type="button" id="resetFilterBtn" onclick="resetAllFilters()"
-            class="hidden text-[11px] font-bold text-blue-600 dark:text-blue-400 hover:underline">
-            Reset Filter
-          </button>
-        </div>
-        <p class="text-[11px]">Tips: Simulasi cicilan tersedia untuk produk harga <strong>&gt; Rp 1.000.000</strong>.</p>
+      <div class="filter-group">
+        <label for="brandFilter">Merek</label>
+        <select id="brandFilter">
+          <option value="ALL">Semua Merek</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="tagFilter">Label Khusus</label>
+        <select id="tagFilter">
+          <option value="ALL">Semua Produk</option>
+          <option value="PROMO">Sedang Promo</option>
+          <option value="BEST">Best Seller</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="sortFilter">Urutkan</label>
+        <select id="sortFilter">
+          <option value="DEFAULT">Rekomendasi</option>
+          <option value="PRICE_ASC">Harga Terendah</option>
+          <option value="PRICE_DESC">Harga Tertinggi</option>
+          <option value="VIEWS_DESC">Paling Banyak Dilihat</option>
+        </select>
       </div>
     </section>
 
-    <!-- 4. GRID KATALOG PRODUK (HANYA STOK > 0 DAN HARGA > 0) -->
-    <section id="productGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-4">
-      <div class="col-span-full text-center py-12 text-slate-400">Memuat data produk terbaru...</div>
-    </section>
+    <!-- Result Summary -->
+    <div class="catalog-meta">
+      <span id="resultCount">Memuat data katalog...</span>
+      <span id="lastUpdatedInfo">Sinkronisasi real-time Google Sheets</span>
+    </div>
 
+    <!-- Product Grid -->
+    <div class="product-grid" id="productGrid"></div>
+    <div class="state-message" id="stateMessage">Memuat katalog produk Planet Computer...</div>
   </main>
 
-  <!-- FOOTER LOKASI TOKO & KONTAK WA -->
-  <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 mt-10 transition-colors">
-    <div class="max-w-7xl mx-auto px-4 py-6 flex flex-col lg:flex-row items-center justify-between gap-4 text-center lg:text-left">
-      <div class="space-y-1">
-        <div class="flex items-center justify-center lg:justify-start gap-2 flex-wrap">
-          <p class="text-sm font-extrabold text-slate-900 dark:text-white" id="footerStoreName">Planet Computer</p>
-          <span class="px-2 py-0.5 text-[10px] font-bold uppercase bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded" id="footerStoreBranch">Cabang Sumedang</span>
+  <!-- Product Detail Modal -->
+  <div class="modal-backdrop" id="detailModal">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <span class="product-cat" id="modalCat"></span>
+          <h2 id="modalTitle" style="font-size: 18px; margin-top: 2px;"></h2>
+          <p class="product-sku" id="modalSku"></p>
         </div>
-        <p class="text-xs text-slate-500 dark:text-slate-400" id="footerStoreAddress">Jl. Mayor Abdurahman No. 225, Plaza Asia Lt. GF No. 19-20</p>
-        <p class="text-[11px] text-slate-400 dark:text-slate-500" id="footerStoreHours">Jam Operasional: Setiap Hari 09.00 – 21.00 WIB</p>
+        <button class="modal-close" id="closeDetailModal">✕</button>
       </div>
 
-      <div class="flex flex-wrap items-center justify-center gap-2">
-        <a id="footerWaSalesBtn" href="#" target="_blank" rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition whitespace-nowrap">
-          <span>Chat Sales (Pembelian Unit)</span>
-        </a>
+      <div class="modal-grid">
+        <div>
+          <div class="gallery-main">
+            <img id="modalMainImg" src="" alt="Foto Produk" />
+          </div>
+          <div class="gallery-thumbs" id="modalThumbs"></div>
+        </div>
 
-        <a id="footerWaServiceBtn" href="#" target="_blank" rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs font-bold bg-amber-500 hover:bg-amber-600 text-slate-950 shadow-sm transition whitespace-nowrap">
-          <span>Chat Teknisi (Servis Laptop/Printer)</span>
-        </a>
+        <div>
+          <div class="price-old" id="modalOldPrice"></div>
+          <div class="price-main" id="modalPrice" style="font-size: 22px;"></div>
+          <div class="promo-note" id="modalPromoDetail"></div>
+          <p style="font-size: 12.5px; color: var(--text-muted); margin-top: 4px;" id="modalStock"></p>
 
-        <a id="footerMapsBtn" href="#" target="_blank" rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white shadow-sm transition whitespace-nowrap">
-          <span>Petunjuk Arah Maps</span>
-        </a>
+          <div class="spec-box" id="modalSpec"></div>
+
+          <!-- Installment Simulator -->
+          <div class="installment-box">
+            <h4>💳 Simulasi Cicilan &amp; Pembayaran</h4>
+            <div class="installment-controls">
+              <select id="leasingPartner">
+                <option value="INDODANA">Indodana PayLater</option>
+                <option value="KREDIVO">Kredivo</option>
+                <option value="HCI">Home Credit Indonesia</option>
+                <option value="DEBIT">Kartu Debit / Transfer</option>
+              </select>
+              <select id="leasingTenor">
+                <option value="1">1 Bulan / Cash</option>
+                <option value="3">3 Bulan</option>
+                <option value="6" selected>6 Bulan</option>
+                <option value="12">12 Bulan</option>
+              </select>
+            </div>
+            <div class="installment-result" id="installmentResult"></div>
+          </div>
+
+          <div class="marketplace-links" id="modalActions"></div>
+        </div>
       </div>
     </div>
+  </div>
+
+  <!-- Cart Modal -->
+  <div class="modal-backdrop" id="cartModal">
+    <div class="modal" style="max-width: 520px;">
+      <div class="modal-header">
+        <h2 style="font-size: 18px;">🛒 Keranjang Belanja WhatsApp</h2>
+        <button class="modal-close" id="closeCartModal">✕</button>
+      </div>
+      <div id="cartItemsContainer"></div>
+      <div style="margin-top: 14px; display: flex; justify-content: space-between; align-items: center; font-weight: 800;">
+        <span>Estimasi Total:</span>
+        <span id="cartTotalText" style="color: var(--primary); font-size: 17px;">Rp 0</span>
+      </div>
+      <button class="btn mp-wa" id="checkoutWaBtn" style="width: 100%; margin-top: 14px; padding: 11px; font-size: 14px;">
+        📲 Pesan Semua via WhatsApp
+      </button>
+    </div>
+  </div>
+
+  <button id="backToTop" title="Kembali ke atas">↑</button>
+
+  <footer>
+    <strong>PLANET COMPUTER SUMEDANG</strong> — Plaza Asia Lt. GF No. 19-20, Jl. Mayor Abdurahman No. 225, Sumedang • Jam Operasional: <strong>09.00 - 20.45 WIB</strong>
   </footer>
 
-  <!-- TOMBOL KECIL MELAYANG KEMBALI KE ATAS (SCROLL TO TOP) -->
-  <button type="button" id="scrollToTopBtn" onclick="scrollToTop()" aria-label="Kembali ke atas" title="Kembali ke atas"
-    class="hidden fixed bottom-20 right-4 sm:right-5 z-40 w-10 h-10 rounded-full bg-slate-900/90 dark:bg-slate-800/95 hover:bg-blue-600 dark:hover:bg-blue-600 text-white border border-slate-700/70 shadow-lg backdrop-blur-sm flex items-center justify-center transition-all duration-200 active:scale-90">
-    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 15l7-7 7 7" />
-    </svg>
-  </button>
-
-  <!-- BAR MELAYANG BANDINGKAN PRODUK -->
-  <div id="floatingCompareBar"
-    class="hidden fixed bottom-20 left-4 sm:bottom-5 sm:left-5 z-40 flex items-center gap-2 sm:gap-2.5 px-3 sm:px-3.5 py-2 sm:py-2.5 rounded-2xl bg-slate-900 dark:bg-slate-800 text-white border border-slate-700 shadow-xl">
-    <div class="text-left leading-tight">
-      <span class="block text-[10px] text-slate-300">Bandingkan</span>
-      <span id="floatingCompareCount" class="block text-xs font-extrabold text-amber-400">0 / 3 Unit</span>
-    </div>
-    <button type="button" onclick="openCompareModal()"
-      class="px-2.5 sm:px-3 py-1.5 rounded-xl text-[11px] sm:text-xs font-extrabold bg-blue-600 hover:bg-blue-500 text-white transition whitespace-nowrap">
-      Bandingkan
-    </button>
-    <button type="button" onclick="clearCompare()" aria-label="Hapus perbandingan"
-      class="px-1.5 py-1 text-xs text-slate-400 hover:text-white font-bold">
-      &times;
-    </button>
-  </div>
-
-  <!-- TOMBOL MELAYANG KERANJANG BELANJA WHATSAPP (KANAN BAWAH) -->
-  <button type="button" id="floatingCartBtn" onclick="openCartDrawer()"
-    class="hidden fixed bottom-4 right-4 sm:bottom-5 sm:right-5 z-40 flex items-center gap-2.5 sm:gap-3 px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white shadow-xl shadow-emerald-950/30 transition active:scale-95">
-    <div class="relative">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-      </svg>
-      <span id="floatingCartCount" class="absolute -top-2 -right-2 min-w-[18px] h-[18px] px-1 rounded-full bg-amber-400 text-slate-950 text-[10px] font-extrabold flex items-center justify-center">0</span>
-    </div>
-    <div class="text-left leading-tight">
-      <span class="block text-[10px] text-emerald-100 font-medium">Keranjang</span>
-      <span id="floatingCartTotal" class="block text-xs font-extrabold">Rp 0</span>
-    </div>
-  </button>
-
-  <!-- MODAL BANDINGKAN PRODUK (SIDE-BY-SIDE) -->
-  <div id="compareModal" onclick="if(event.target === this) closeCompareModal()"
-    class="fixed inset-0 z-50 hidden bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
-    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl max-w-4xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
-      <div class="px-4 sm:px-5 py-3.5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between gap-2">
-        <div>
-          <h3 class="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white">Perbandingan Spesifikasi &amp; Cicilan</h3>
-          <p class="text-[11px] text-slate-500 dark:text-slate-400">Bandingkan selisih harga, spesifikasi, dan estimasi angsuran 12 bulan (khusus harga &gt; Rp 1 Juta)</p>
-        </div>
-        <div class="flex items-center gap-2 flex-shrink-0">
-          <button type="button" onclick="clearCompare(); closeCompareModal();" class="text-xs font-semibold text-rose-600 dark:text-rose-400 hover:underline px-2 py-1">
-            Reset
-          </button>
-          <button type="button" onclick="closeCompareModal()" aria-label="Tutup perbandingan"
-            class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold">
-            &times;
-          </button>
-        </div>
-      </div>
-
-      <div id="compareTableContainer" class="flex-1 overflow-auto p-3 sm:p-4"></div>
-    </div>
-  </div>
-
-  <!-- LACI KERANJANG BELANJA WHATSAPP MULTI-PRODUK -->
-  <div id="cartDrawer" onclick="if(event.target === this) closeCartDrawer()"
-    class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex justify-end">
-    <div class="bg-white dark:bg-slate-900 w-full max-w-md h-full flex flex-col shadow-2xl border-l border-slate-200 dark:border-slate-800">
-      <div class="px-5 py-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
-        <div>
-          <h3 class="text-base font-extrabold text-slate-900 dark:text-white">Keranjang Belanja</h3>
-          <p class="text-[11px] text-slate-500 dark:text-slate-400">Kirim daftar pesanan langsung ke WhatsApp Sales</p>
-        </div>
-        <div class="flex items-center gap-2">
-          <button type="button" id="clearCartBtn" onclick="clearCart()" class="hidden text-xs font-semibold text-rose-600 dark:text-rose-400 hover:underline px-2 py-1">
-            Kosongkan
-          </button>
-          <button type="button" onclick="closeCartDrawer()" aria-label="Tutup keranjang"
-            class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold hover:bg-slate-200 dark:hover:bg-slate-700">
-            &times;
-          </button>
-        </div>
-      </div>
-
-      <div id="cartItemsContainer" class="flex-1 overflow-y-auto p-4 space-y-3"></div>
-
-      <div id="cartFooter" class="hidden p-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/70 space-y-3">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-          <div>
-            <label for="cartPaymentMethod" class="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">Rencana Pembayaran:</label>
-            <select id="cartPaymentMethod"
-              class="w-full px-2.5 py-1.5 text-xs font-semibold bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 border border-slate-300 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600">
-              <option value="Tunai / Transfer">Tunai / Transfer</option>
-              <option value="Cicilan Indodana">Cicilan Indodana</option>
-              <option value="Cicilan Kredivo">Cicilan Kredivo</option>
-              <option value="Cicilan Home Credit">Cicilan Home Credit</option>
-              <option value="Debit Card (EDC)">Debit Card (EDC)</option>
-            </select>
-          </div>
-          <div>
-            <label for="cartBuyerNote" class="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">Nama / Catatan (Opsional):</label>
-            <input type="text" id="cartBuyerNote" placeholder="Contoh: Ambil ke toko sore ini"
-              class="w-full px-2.5 py-1.5 text-xs bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 border border-slate-300 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600" />
-          </div>
-        </div>
-
-        <div class="flex items-center justify-between pt-1">
-          <div>
-            <span class="block text-[11px] text-slate-500 dark:text-slate-400">Total Estimasi (<span id="cartTotalQty">0</span> unit)</span>
-            <span id="cartGrandTotal" class="text-lg font-extrabold text-slate-900 dark:text-white">Rp 0</span>
-          </div>
-          <button type="button" onclick="checkoutCartWa()"
-            class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition">
-            <span>Pesan ke WA Sales</span>
-            <span>&rarr;</span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL DETAIL PRODUK (DENGAN MULTI-FOTO, SPESIFIKASI, CICILAN, SHOPEE/TOKOPEDIA & INFO GARANSI) -->
-  <div id="productModal" onclick="if(event.target === this) closeModal()"
-    class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
-    <div class="bg-white dark:bg-slate-900 border border-transparent dark:border-slate-800 rounded-2xl max-w-lg w-full overflow-hidden shadow-2xl max-h-[92vh] flex flex-col">
-      <!-- Area Foto Utama + Galeri Multi-Foto -->
-      <div class="relative bg-slate-100 dark:bg-slate-800 flex-shrink-0">
-        <div class="h-44 sm:h-48 flex items-center justify-center">
-          <img id="modalImg" src="" alt="" class="w-full h-full object-contain p-3" />
-        </div>
-        <div id="modalGalleryThumbs" class="hidden px-4 pb-2.5 flex items-center justify-center gap-2 overflow-x-auto no-scrollbar"></div>
-        <button onclick="closeModal()" aria-label="Tutup modal" class="absolute top-3 right-3 bg-white/90 dark:bg-slate-900/90 hover:bg-white dark:hover:bg-slate-800 text-slate-800 dark:text-slate-100 w-8 h-8 rounded-full font-bold shadow">&times;</button>
-      </div>
-
-      <div class="p-4 sm:p-5 space-y-3 overflow-y-auto">
-        <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
-          <span id="modalCategory" class="font-semibold text-blue-600 dark:text-blue-400 uppercase"></span>
-          <span id="modalSku"></span>
-        </div>
-        <h3 id="modalTitle" class="text-base sm:text-lg font-bold text-slate-900 dark:text-white leading-snug"></h3>
-        <div id="modalPriceBox"></div>
-
-        <!-- KOTAK SPESIFIKASI PRODUK -->
-        <div id="modalSpecsBox" class="hidden bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 rounded-xl p-3 space-y-1.5">
-          <span class="block text-[11px] font-extrabold uppercase tracking-wider text-slate-600 dark:text-slate-300">Spesifikasi Utama</span>
-          <ul id="modalSpecsList" class="text-xs text-slate-700 dark:text-slate-200 space-y-1 list-disc pl-4 leading-relaxed"></ul>
-        </div>
-
-        <!-- BANNER INFO PROMO KHUSUS -->
-        <div id="modalPromoBanner" class="hidden bg-emerald-50/90 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800/70 rounded-xl p-3 space-y-1.5">
-          <div class="flex items-center justify-between gap-2">
-            <span id="modalPromoBadge" class="bg-emerald-600 text-white text-[11px] font-bold px-2.5 py-0.5 rounded-md"></span>
-            <span class="text-[11px] font-semibold text-emerald-900 dark:text-emerald-300">Program Promo Aktif</span>
-          </div>
-          <p id="modalPromoDetail" class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed"></p>
-        </div>
-
-        <!-- KETERANGAN PEMBAYARAN KHUSUS PRODUK <= RP 1.000.000 -->
-        <div id="nonInstallmentNotice" class="hidden bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 rounded-xl p-3 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-          <strong class="text-slate-800 dark:text-slate-100">Metode Pembayaran:</strong> Tunai, Transfer Bank, QRIS, atau Kartu Debit. <em>(Simulasi cicilan tersedia untuk produk dengan harga di atas Rp 1.000.000).</em>
-        </div>
-
-        <!-- KALKULATOR SIMULASI CICILAN (AKTIF JIKA HARGA > RP 1.000.000) -->
-        <div id="installmentCalcBox" class="hidden bg-blue-50/80 dark:bg-slate-800/80 border border-blue-200 dark:border-slate-700 rounded-xl p-3.5 space-y-3">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-blue-950 dark:text-blue-200">Simulasi Cicilan &amp; Pembayaran</span>
-            <span class="text-[10px] font-semibold text-blue-700 dark:text-blue-300 bg-blue-100 dark:bg-blue-950 px-2 py-0.5 rounded">Estimasi</span>
-          </div>
-
-          <div>
-            <span class="block text-[11px] font-semibold text-slate-700 dark:text-slate-300 mb-1.5">1. Pilih Partner Cicilan / Pembayaran:</span>
-            <div id="leasingTabs" class="grid grid-cols-2 sm:grid-cols-4 gap-1.5"></div>
-          </div>
-
-          <div id="dpSection" class="space-y-1.5">
-            <div class="flex items-center justify-between">
-              <span class="text-[11px] font-semibold text-slate-700 dark:text-slate-300">2. Uang Muka / DP (Opsional):</span>
-              <div id="dpPresetButtons" class="flex gap-1"></div>
-            </div>
-            <div class="relative">
-              <span class="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">Rp</span>
-              <input type="text" inputmode="numeric" id="dpNominalInput" placeholder="0 (Tanpa DP)"
-                oninput="handleDpInput(this)"
-                class="w-full pl-9 pr-3 py-1.5 text-xs font-semibold bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 border border-blue-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600" />
-            </div>
-          </div>
-
-          <div id="tenorSection" class="flex items-center justify-between gap-2">
-            <span class="text-[11px] font-semibold text-slate-700 dark:text-slate-300">3. Pilih Tenor:</span>
-            <div id="tenorButtons" class="flex flex-wrap gap-1.5"></div>
-          </div>
-
-          <div class="bg-white dark:bg-slate-900 border border-blue-200 dark:border-slate-700 rounded-lg p-3 space-y-2">
-            <div class="flex items-baseline justify-between gap-2">
-              <span id="installmentResultLabel" class="text-xs text-slate-500 dark:text-slate-400">Estimasi Cicilan:</span>
-              <span id="installmentResult" class="text-base font-extrabold text-blue-700 dark:text-blue-400 text-right"></span>
-            </div>
-
-            <div id="installmentPartnerPriceRow" class="text-[11px] text-slate-600 dark:text-slate-300 flex flex-wrap justify-between gap-1 pt-1.5 border-t border-slate-100 dark:border-slate-800"></div>
-            <div id="installmentPrincipalRow" class="text-[11px] text-slate-600 dark:text-slate-300 flex flex-wrap justify-between gap-1"></div>
-            <div id="installmentBreakdown" class="text-[11px] text-slate-500 dark:text-slate-400 flex flex-wrap justify-between gap-1"></div>
-
-            <div class="bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800/60 rounded-md p-2 text-[11px] text-amber-900 dark:text-amber-200 leading-snug">
-              <strong>Catatan Penting:</strong> Nominal di atas hanya <strong>estimasi awal</strong>. Besaran cicilan aktual <strong>bisa lebih besar atau lebih kecil</strong> tergantung hasil analisis limit akun, biaya admin leasing, serta promo tenor yang berlaku saat pengajuan.
-            </div>
-          </div>
-        </div>
-
-        <div class="flex items-center justify-between text-xs pt-2 border-t border-slate-100 dark:border-slate-800">
-          <span id="modalStock" class="font-medium text-emerald-700 dark:text-emerald-400"></span>
-          <span id="modalViews" class="text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/60 px-2 py-0.5 rounded"></span>
-        </div>
-
-        <!-- AKSI MODAL -->
-        <div class="space-y-2 pt-1">
-          <div class="grid grid-cols-3 gap-1.5 sm:gap-2">
-            <button type="button" onclick="addSelectedToCart()"
-              class="inline-flex items-center justify-center gap-1 bg-blue-600 hover:bg-blue-700 text-white text-[11px] sm:text-xs font-bold py-2.5 px-2 rounded-xl transition">
-              <span>+ Keranjang</span>
-            </button>
-
-            <button type="button" id="modalCompareBtn" onclick="toggleSelectedCompare()"
-              class="inline-flex items-center justify-center gap-1 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-700 text-[11px] sm:text-xs font-bold py-2.5 px-2 rounded-xl transition">
-              <span id="modalCompareBtnText">Bandingkan</span>
-            </button>
-
-            <button type="button" onclick="copySelectedProductLink()"
-              class="inline-flex items-center justify-center gap-1 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-700 text-[11px] sm:text-xs font-bold py-2.5 px-2 rounded-xl transition">
-              <span id="modalCopyLinkText">Salin Link</span>
-            </button>
-          </div>
-
-          <a id="modalWaBtn" href="#" target="_blank" rel="noopener noreferrer"
-            class="block w-full text-center bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-semibold py-2.5 rounded-xl transition">
-            Tanya &amp; Ajukan Unit Ini ke WA Sales
-          </a>
-
-          <!-- TOMBOL MARKETPLACE SHOPEE & TOKOPEDIA (LINK PRODUK ATAU FALLBACK PROFIL TOKO) -->
-          <div id="modalMarketplaceBox" class="hidden pt-2 border-t border-slate-100 dark:border-slate-800 space-y-2">
-            <span id="modalMarketplaceHint" class="block text-[11px] font-semibold text-center text-slate-600 dark:text-slate-300">Atau checkout online via Official Store kami:</span>
-            <div id="modalMarketplaceButtons" class="grid grid-cols-2 gap-2"></div>
-            <div class="bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-800/70 rounded-xl p-2.5 text-[11px] text-amber-900 dark:text-amber-200 leading-relaxed">
-              <strong>Ketentuan Garansi Pembelian Online:</strong> Khusus pembelian melalui e-commerce (<strong>Shopee / Tokopedia</strong>), pengajuan dan klaim garansi <strong>hanya diterima melalui sistem/aplikasi e-commerce terkait</strong> dan <strong>tidak dapat diklaim secara offline langsung ke toko fisik</strong>.
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- NOTIFIKASI TOAST -->
-  <div id="toast" class="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 hidden px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-slate-900 dark:bg-slate-800 border border-slate-700 shadow-lg whitespace-nowrap"></div>
-
   <script>
-    //<![CDATA[
-    // ==========================================
-    // KONFIGURASI UTAMA (TERHUBUNG KE SHEET & APPS SCRIPT)
-    // ==========================================
     const CONFIG = {
-      STORE_NAME: "Planet Computer",
-      STORE_BRANCH: "Cabang Sumedang",
-      STORE_ADDRESS: "Jl. Mayor Abdurahman No. 225, Plaza Asia Lt. GF No. 19-20",
-      STORE_MAPS_URL: "https://www.google.com/maps/dir/?api=1&destination=Planet+Computer+Plaza+Asia+Sumedang+Jl.+Mayor+Abdurahman+No.+225",
-
-      // Kontak WhatsApp Sales & Servis
-      WHATSAPP_SALES: "6285135240564",
-      WHATSAPP_SERVICE: "6285135240564",
-
-      // Link Profil E-Commerce Toko (Dipakai otomatis jika produk belum punya link khusus)
-      DEFAULT_SHOPEE_URL: "https://s.shopee.co.id/6VPgZPBfN4",
-      DEFAULT_TOKOPEDIA_URL: "https://tk.tokopedia.com/ZSsY1VMDY/",
-
-      // Jam Operasional Toko (WIB / UTC+7)
-      STORE_OPEN_HOUR: 09,
-      STORE_CLOSE_HOUR: 21,
-
-      // Minimal harga produk DI ATAS Rp 1.000.000 baru bisa simulasi cicilan
-      MIN_INSTALLMENT_PRICE: 1000000,
-
-      // Daftar Merek Utama untuk Deteksi Otomatis
-      SUPPORTED_BRANDS: ["ASUS", "Lenovo", "Acer", "HP", "Axioo", "MSI", "Advan", "Zyrex", "Epson", "Brother"],
-
-      // URL CSV Google Sheets (Sheet 1: Katalog_Produk)
+      // Ganti dengan URL Publish-to-Web CSV Google Sheets Katalog_Produk Anda
       SHEET_CSV_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRxE80Pyis0tiaQ8b4INB3xIkDS4wfvQC_DRCrgnjWRaUQyJ7OD98O3jRqlYrcAMkqztFIhRtPqC0uJ/pub?gid=0&single=true&output=csv",
-      // URL Web App Google Apps Script (Code.gs) untuk hitung view otomatis
-      VIEW_TRACKER_WEBHOOK: "https://script.google.com/macros/s/AKfycbxc8EZuJZ7Ipncwq4g1DeqAYReM70KdfL4iM4P_QdlV3yXvYBq0EOrLxaG_ns8T8zwReQ/exec",
 
-      // ==========================================
-      // BANNER SLIDER NON-PRODUK (PROMO BUNDLING / INFO TOKO)
-      // ==========================================
-      CUSTOM_BANNERS: [
-        {
-          active: true,
-          rank: 1,
-          badge: "EPSON SERVICE CENTER",
-          badgeColor: "bg-rose-600 text-white",
-          title: "Planet Computer Partner Service Center Epson",
-          subtitle: "Menerima Klaim Garansi Resmi Produk Epson",
-          imageUrl: "https://placehold.co/800x450/1e3a8a/ffffff?text=Partner+Service+Epson+Resmi",
-          fullImage: false,
-          buttonText: "Konsultasi Service",
-          linkUrl: "",
-          waText: "Halo Planet Computer Sumedang, saya ingin informasi mengenai Service produk Epson."
-        }
+      // Ganti dengan URL Web App Google Apps Script untuk counter TOTAL DILIHAT (opsional)
+      APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbxc8EZuJZ7Ipncwq4g1DeqAYReM70KdfL4iM4P_QdlV3yXvYBq0EOrLxaG_ns8T8zwReQ/exec",
+
+      // Nomor WhatsApp Toko (format 628xxx)
+      WHATSAPP_NUMBER: "6285135240564",
+
+      // Daftar Merek yang didukung (Updated)
+      SUPPORTED_BRANDS: [
+        "ASUS",
+        "Lenovo",
+        "Acer",
+        "HP",
+        "Axioo",
+        "MSI",
+        "Advan",
+        "Zyrex",
+        "Epson",
+        "Brother"
       ],
 
-      // Gambar Cadangan Otomatis Berdasarkan Tipe Produk
-      TYPE_FALLBACK_IMAGES: {
-        LAPTOP: "https://placehold.co/600x400/eff6ff/1d4ed8?text=Laptop+Ready+Stok",
-        PRINTER: "https://placehold.co/600x400/ecfdf5/047857?text=Printer+%26+Tinta",
-        MONITOR: "https://placehold.co/600x400/f5f3ff/6d28d9?text=Monitor+LED",
-        PC: "https://placehold.co/600x400/f0f9ff/0369a1?text=PC+%26+All-in-One",
-        AKSESORIS: "https://placehold.co/600x400/fffbeb/b45309?text=Aksesoris+Komputer",
-        DEFAULT: "https://placehold.co/600x400/f1f5f9/475569?text=Planet+Computer"
+      // Jam Operasional Toko: 09.00 - 20.45 WIB
+      OPERATING_HOURS: {
+        openHour: 9,
+        openMinute: 0,
+        closeHour: 20,
+        closeMinute: 45,
+        displayText: "09.00 - 20.45 WIB"
       },
 
-      DP_PRESETS: [0, 10, 20, 30],
+      // Tipe produk yang disembunyikan (tanpa spasi)
+      EXCLUDED_TYPES: ["SPAREPART"],
 
-      LEASING_SCHEMES: {
-        indodana: {
-          name: "Indodana",
-          markupLabel: "+1,5%",
-          markupPct: 1.5,
-          monthlyRate: 1.99,
-          adminPct: 1,
-          adminFixed: 0,
-          tenors: [3, 6, 12],
-          isDebit: false
-        },
-        kredivo: {
-          name: "Kredivo",
-          markupLabel: "+3%",
-          markupPct: 3,
-          monthlyRate: 1.99,
-          adminPct: 1,
-          adminFixed: 0,
-          tenors: [3, 6, 12],
-          isDebit: false
-        },
-        hci: {
-          name: "Home Credit",
-          markupLabel: "Normal",
-          markupPct: 0,
-          monthlyRate: 1.99,
-          adminPct: 0,
-          adminFixed: 199000,
-          tenors: [6, 9, 12],
-          isDebit: false
-        },
-        debit: {
-          name: "Debit Card",
-          markupLabel: "+2%",
-          markupPct: 2,
-          monthlyRate: 0,
-          adminPct: 0,
-          adminFixed: 0,
-          tenors: [1],
-          isDebit: true
-        }
-      }
+      PLACEHOLDER_IMG: "https://placehold.co/400x300/f8fafc/64748b?text=Planet+Computer"
     };
 
     let allProducts = [];
-    let activeCategory = "SEMUA";
-    let currentSlide = 0;
-    let slideCount = 0;
+    let filteredProducts = [];
+    let cart = JSON.parse(localStorage.getItem("pc_sumedang_cart") || "[]");
+    let activeProduct = null;
 
-    let selectedModalItem = null;
-    let isInstallmentActive = false;
-    let selectedLeasingKey = "indodana";
-    let selectedTenor = 12;
-    let dpAmount = 0;
+    // 1. Cek Status Jam Operasional (09.00 - 20.45 WIB)
+    function updateOperatingStatus() {
+      const nowWIB = new Date(
+        new Date().toLocaleString("en-US", { timeZone: "Asia/Jakarta" })
+      );
+      const currentMinutes = nowWIB.getHours() * 60 + nowWIB.getMinutes();
+      const openMinutes =
+        CONFIG.OPERATING_HOURS.openHour * 60 + CONFIG.OPERATING_HOURS.openMinute;
+      const closeMinutes =
+        CONFIG.OPERATING_HOURS.closeHour * 60 + CONFIG.OPERATING_HOURS.closeMinute;
 
-    let compareSkus = [];
-    let cart = [];
-    try {
-      cart = JSON.parse(localStorage.getItem("pc_cart") || "[]");
-    } catch (e) {
-      cart = [];
-    }
+      const isOpen = currentMinutes >= openMinutes && currentMinutes < closeMinutes;
 
-    // ==========================================
-    // IDENTITAS TOKO, JAM BUKA WIB & KONTAK WA
-    // ==========================================
-    document.title = `${CONFIG.STORE_NAME} - ${CONFIG.STORE_BRANCH} | Katalog Produk & Promo`;
-    document.getElementById("storeTitle").textContent = CONFIG.STORE_NAME;
-    document.getElementById("storeBranch").textContent = CONFIG.STORE_BRANCH;
-    document.getElementById("storeAddress").textContent = CONFIG.STORE_ADDRESS;
-    document.getElementById("headerMapsBtn").href = CONFIG.STORE_MAPS_URL;
-    document.getElementById("footerStoreName").textContent = CONFIG.STORE_NAME;
-    document.getElementById("footerStoreBranch").textContent = CONFIG.STORE_BRANCH;
-    document.getElementById("footerStoreAddress").textContent = CONFIG.STORE_ADDRESS;
-    document.getElementById("footerMapsBtn").href = CONFIG.STORE_MAPS_URL;
-    document.getElementById("footerStoreHours").textContent =
-      `Jam Operasional: Setiap Hari ${String(CONFIG.STORE_OPEN_HOUR).padStart(2, "0")}.00 – ${String(CONFIG.STORE_CLOSE_HOUR).padStart(2, "0")}.00 WIB`;
-
-    document.getElementById("footerWaSalesBtn").href =
-      `https://wa.me/${CONFIG.WHATSAPP_SALES}?text=${encodeURIComponent(`Halo Sales *${CONFIG.STORE_NAME}* (${CONFIG.STORE_BRANCH}), saya ingin konsultasi pembelian laptop/komputer.`)}`;
-    document.getElementById("footerWaServiceBtn").href =
-      `https://wa.me/${CONFIG.WHATSAPP_SERVICE}?text=${encodeURIComponent(`Halo Teknisi Servis *${CONFIG.STORE_NAME}* (${CONFIG.STORE_BRANCH}), saya ingin konsultasi perbaikan/upgrade laptop atau printer.`)}`;
-
-    function updateStoreOpenStatus() {
-      const now = new Date();
-      const utcMs = now.getTime() + now.getTimezoneOffset() * 60000;
-      const wibDate = new Date(utcMs + 7 * 3600000);
-      const wibHour = wibDate.getHours();
-
-      const badge = document.getElementById("storeStatusBadge");
+      const dot = document.getElementById("statusDot");
       const text = document.getElementById("storeStatusText");
-      const isOpen = wibHour >= CONFIG.STORE_OPEN_HOUR && wibHour < CONFIG.STORE_CLOSE_HOUR;
+      const label = document.getElementById("operatingHoursLabel");
 
+      label.textContent = CONFIG.OPERATING_HOURS.displayText;
       if (isOpen) {
-        badge.className = "inline-flex items-center gap-1.5 px-2 py-0.5 text-[10px] font-bold rounded-md bg-emerald-50 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800";
-        text.textContent = `Buka • Tutup ${String(CONFIG.STORE_CLOSE_HOUR).padStart(2, "0")}.00 WIB`;
+        dot.classList.add("open");
+        text.textContent = "Toko Buka Sekarang";
       } else {
-        badge.className = "inline-flex items-center gap-1.5 px-2 py-0.5 text-[10px] font-bold rounded-md bg-amber-50 dark:bg-amber-950/70 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800";
-        text.textContent = `Tutup • Buka ${String(CONFIG.STORE_OPEN_HOUR).padStart(2, "0")}.00 WIB`;
+        dot.classList.remove("open");
+        text.textContent = "Toko Sedang Tutup";
       }
     }
-    updateStoreOpenStatus();
 
-    const escapeAttr = (str) => String(str || "").replace(/\\/g, "\\\\").replace(/'/g, "\\'");
-    const escapeHtml = (str) => String(str || "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;");
+    // 2. Utilitas Format & Parsing
+    function parseHarga(raw) {
+      if (raw === null || raw === undefined) return 0;
+      const digits = String(raw).replace(/[^0-9]/g, "");
+      return parseInt(digits, 10) || 0;
+    }
 
-    const formatRupiah = (angka) => {
-      const num = parseInt(String(angka).replace(/[^0-9]/g, ""), 10);
-      if (isNaN(num)) return "Rp 0";
-      return "Rp " + num.toLocaleString("id-ID");
-    };
-
-    const parseNumber = (val) => {
-      const num = parseInt(String(val || "0").replace(/[^0-9]/g, ""), 10);
-      return isNaN(num) ? 0 : num;
-    };
-
-    function normalizeUrl(raw) {
-      const u = String(raw || "").trim();
-      if (!u) return "";
-      if (/^https?:\/\//i.test(u)) return u;
-      if (/^(www\.)?(s\.shopee\.co\.id|shopee\.co\.id|id\.shp\.ee|shp\.ee|tk\.tokopedia\.com|tokopedia\.com|tokopedia\.link)/i.test(u)) {
-        return "https://" + u;
-      }
-      return "";
+    function formatRupiah(num) {
+      return "Rp " + (Number(num) || 0).toLocaleString("id-ID");
     }
 
     function detectBrand(title) {
-      const t = String(title || "").toLowerCase();
-      if (/\b(asus|rog|tuf|vivobook|zenbook|expertbook)\b/.test(t)) return "ASUS";
-      if (/\b(lenovo|thinkpad|ideapad|legion|loq|yoga)\b/.test(t)) return "Lenovo";
-      if (/\b(acer|aspire|nitro|predator|swift|extensa|travelmate)\b/.test(t)) return "Acer";
-      if (/\b(hp|hewlett|pavilion|victus|omen|elitebook|probook|envy)\b/.test(t)) return "HP";
-      if (/\b(axioo|pongo|mybook|hype)\b/.test(t)) return "Axioo";
-      if (/\b(msi|katana|cyborg|thin|stealth|raider|modern|prestige)\b/.test(t)) return "MSI";
-      return "Lainnya";
-    }
-
-    function detectProductType(rawType, title) {
-      const cleaned = String(rawType || "").trim();
-      if (cleaned) return cleaned;
-
-      const t = String(title || "").toLowerCase();
-      if (/\b(laptop|notebook|macbook|vivobook|zenbook|expertbook|thinkpad|ideapad|legion|loq|yoga|aspire|nitro|predator|swift|extensa|travelmate|pavilion|victus|omen|elitebook|probook|pongo|mybook|hype|katana|cyborg|modern|prestige|rog|tuf)\b/.test(t)) {
-        return "Laptop";
-      }
-      if (/\b(printer|epson|canon|brother|pixma|laserjet|inkjet|tinta|cartridge|toner)\b/.test(t)) {
-        return "Printer";
-      }
-      if (/\b(monitor|led monitor|ips monitor|gaming monitor)\b/.test(t)) {
-        return "Monitor";
-      }
-      if (/\b(pc|desktop|all in one|aio|mini pc|cpu|rakitan)\b/.test(t)) {
-        return "PC & AIO";
-      }
-      if (/\b(mouse|keyboard|headset|earphone|tas|ransel|backpack|flashdisk|ssd|ram|sodimm|charger|adaptor|adapter|cooling pad|webcam|router|kabel|hub)\b/.test(t)) {
-        return "Aksesoris";
+      if (!title) return "Lainnya";
+      for (const brand of CONFIG.SUPPORTED_BRANDS) {
+        const regex = new RegExp(`\\b${brand}\\b`, "i");
+        if (regex.test(title)) return brand;
       }
       return "Lainnya";
     }
 
-    function getFallbackImageByType(category) {
-      const c = String(category || "").toLowerCase();
-      if (c.includes("laptop") || c.includes("notebook") || c.includes("macbook")) {
-        return CONFIG.TYPE_FALLBACK_IMAGES.LAPTOP;
-      }
-      if (c.includes("printer") || c.includes("tinta") || c.includes("scanner")) {
-        return CONFIG.TYPE_FALLBACK_IMAGES.PRINTER;
-      }
-      if (c.includes("monitor") || c.includes("layar") || c.includes("display")) {
-        return CONFIG.TYPE_FALLBACK_IMAGES.MONITOR;
-      }
-      if (c.includes("pc") || c.includes("aio") || c.includes("all in one") || c.includes("desktop")) {
-        return CONFIG.TYPE_FALLBACK_IMAGES.PC;
-      }
-      if (c.includes("aksesoris") || c.includes("peripheral") || c.includes("komponen") || c.includes("storage")) {
-        return CONFIG.TYPE_FALLBACK_IMAGES.AKSESORIS;
-      }
-      return CONFIG.TYPE_FALLBACK_IMAGES.DEFAULT;
+    function parseImages(rawLinks) {
+      if (!rawLinks) return [CONFIG.PLACEHOLDER_IMG];
+      const urls = String(rawLinks)
+        .split(/[\n,]+/)
+        .map((s) => s.trim())
+        .filter((s) => s.startsWith("http"));
+      return urls.length ? urls : [CONFIG.PLACEHOLDER_IMG];
     }
 
-    function parseImages(rawImg, fallbackImg) {
-      const list = String(rawImg || "")
-        .split(/[\n,|]+/)
-        .map(u => u.trim())
-        .filter(u => u.startsWith("http"));
-      return list.length > 0 ? list : [fallbackImg || CONFIG.TYPE_FALLBACK_IMAGES.DEFAULT];
-    }
+    // Parser CSV RFC-4180 (mendukung multiline di dalam tanda kutip seperti kolom SPESIFIKASI)
+    function parseCSV(text) {
+      const rows = [];
+      let row = [];
+      let field = "";
+      let inQuotes = false;
 
-    function parseSpecLines(rawSpecs) {
-      return String(rawSpecs || "")
-        .split(/[\n|;]+/)
-        .map(s => s.trim())
-        .filter(Boolean);
-    }
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        const nextChar = text[i + 1];
 
-    function showToast(message) {
-      const el = document.getElementById("toast");
-      el.textContent = message;
-      el.classList.remove("hidden");
-      clearTimeout(el._timer);
-      el._timer = setTimeout(() => el.classList.add("hidden"), 2600);
-    }
-
-    function toggleTheme() {
-      const isDark = document.documentElement.classList.toggle("dark");
-      localStorage.setItem("pc_theme", isDark ? "dark" : "light");
-      showToast(isDark ? "Mode gelap diaktifkan" : "Mode terang diaktifkan");
-    }
-
-    // ==========================================
-    // TOMBOL KEMBALI KE ATAS (SCROLL TO TOP)
-    // ==========================================
-    function scrollToTop() {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    window.addEventListener("scroll", () => {
-      const btn = document.getElementById("scrollToTopBtn");
-      if (!btn) return;
-      if (window.scrollY > 350) {
-        btn.classList.remove("hidden");
-      } else {
-        btn.classList.add("hidden");
-      }
-    }, { passive: true });
-
-    // ==========================================
-    // FITUR BANDINGKAN PRODUK (MAKSIMAL 3 UNIT)
-    // ==========================================
-    function toggleCompare(sku, event) {
-      if (event) event.stopPropagation();
-      const idx = compareSkus.indexOf(sku);
-      if (idx !== -1) {
-        compareSkus.splice(idx, 1);
-      } else {
-        if (compareSkus.length >= 3) {
-          showToast("Maksimal membandingkan 3 produk sekaligus");
-          return;
+        if (inQuotes) {
+          if (char === '"' && nextChar === '"') {
+            field += '"';
+            i++;
+          } else if (char === '"') {
+            inQuotes = false;
+          } else {
+            field += char;
+          }
+        } else {
+          if (char === '"') {
+            inQuotes = true;
+          } else if (char === ",") {
+            row.push(field);
+            field = "";
+          } else if (char === "\r" && nextChar === "\n") {
+            row.push(field);
+            rows.push(row);
+            row = [];
+            field = "";
+            i++;
+          } else if (char === "\n" || char === "\r") {
+            row.push(field);
+            rows.push(row);
+            row = [];
+            field = "";
+          } else {
+            field += char;
+          }
         }
-        compareSkus.push(sku);
       }
-      updateCompareBar();
-      renderProducts();
-      if (selectedModalItem && selectedModalItem.sku === sku) {
-        updateModalCompareButton();
+      if (field.length > 0 || row.length > 0) {
+        row.push(field);
+        rows.push(row);
+      }
+
+      if (rows.length < 2) return [];
+      const headers = rows[0].map((h) => h.trim());
+      return rows.slice(1).map((r) => {
+        const obj = {};
+        headers.forEach((h, idx) => {
+          obj[h] = (r[idx] || "").trim();
+        });
+        return obj;
+      });
+    }
+
+    // 3. Muat & Filter Produk (Sembunyikan Tipe Produk = SPAREPART)
+    async function loadCatalog() {
+      const stateEl = document.getElementById("stateMessage");
+      try {
+        const res = await fetch(CONFIG.SHEET_CSV_URL);
+        if (!res.ok) throw new Error("Gagal mengambil data CSV");
+        const csvText = await res.text();
+        const rawRows = parseCSV(csvText);
+
+        allProducts = rawRows
+          .map((row) => {
+            const title = row["Judul Produk"] || "";
+            const type = (row["Tipe Produk"] || "").trim();
+            const price = parseHarga(row["Harga"]);
+            const promoPrice = parseHarga(row["HARGA PROMO"]);
+            const stock = parseInt(row["Unit dalam Persediaan"], 10) || 0;
+            const sku = row["Nomor SKU"] || "";
+            const images = parseImages(row["LINK GAMBAR"]);
+            const infoPromo = row["INFO PROMO"] || "";
+            const detailPromo = row["DETAIL PROMO"] || "";
+            const spec = row["SPESIFIKASI"] || "";
+            const bestSeller = /^(ya|yes|1|true)$/i.test(row["BEST SELLER"] || "");
+            const bannerSlider = /^(ya|yes|1|true)$/i.test(row["BANNER SLIDER"] || "");
+            const views = parseInt(row["TOTAL DILIHAT"], 10) || 0;
+            const shopee = row["LINK SHOPEE"] || "";
+            const tokopedia = row["LINK TOKOPEDIA"] || "";
+
+            return {
+              title,
+              type,
+              brand: detectBrand(title),
+              price,
+              promoPrice,
+              finalPrice: promoPrice > 0 && promoPrice < price ? promoPrice : price,
+              stock,
+              sku,
+              images,
+              infoPromo,
+              detailPromo,
+              spec,
+              bestSeller,
+              bannerSlider,
+              views,
+              shopee,
+              tokopedia
+            };
+          })
+          .filter((item) => {
+            // Abaikan baris kosong
+            if (!item.title) return false;
+
+            // Sembunyikan Tipe Produk "SPAREPART" (tanpa spasi, case-insensitive)
+            const normalizedType = item.type.toUpperCase();
+            if (CONFIG.EXCLUDED_TYPES.includes(normalizedType)) return false;
+
+            // Tampilkan hanya item dengan stok > 0 dan harga > 0
+            if (item.stock <= 0 || item.finalPrice <= 0) return false;
+
+            return true;
+          });
+
+        initFilterOptions();
+        renderBanners();
+        applyFilters();
+        checkUrlSkuParam();
+      } catch (err) {
+        console.error(err);
+        stateEl.textContent =
+          "Gagal memuat data katalog. Pastikan SHEET_CSV_URL pada CONFIG sudah diisi URL CSV Google Sheets yang dipublikasikan.";
       }
     }
 
-    function toggleSelectedCompare() {
-      if (!selectedModalItem) return;
-      toggleCompare(selectedModalItem.sku);
+    // 4. Inisialisasi Dropdown & Pill Merek
+    function initFilterOptions() {
+      const catSelect = document.getElementById("categoryFilter");
+      const brandSelect = document.getElementById("brandFilter");
+      const brandPills = document.getElementById("brandPills");
+
+      // Kategori diambil dari produk yang sudah lolos filter (SPAREPART otomatis tidak masuk)
+      const categories = [...new Set(allProducts.map((p) => p.type).filter(Boolean))].sort();
+      catSelect.innerHTML =
+        `<option value="ALL">Semua Tipe Produk</option>` +
+        categories.map((c) => `<option value="${c}">${c}</option>`).join("");
+
+      brandSelect.innerHTML =
+        `<option value="ALL">Semua Merek</option>` +
+        CONFIG.SUPPORTED_BRANDS.map((b) => `<option value="${b}">${b}</option>`).join("") +
+        `<option value="Lainnya">Lainnya</option>`;
+
+      brandPills.innerHTML =
+        `<button class="brand-pill active" data-brand="ALL">Semua Merek</button>` +
+        CONFIG.SUPPORTED_BRANDS.map(
+          (b) => `<button class="brand-pill" data-brand="${b}">${b}</button>`
+        ).join("");
+
+      brandPills.querySelectorAll(".brand-pill").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          brandSelect.value = btn.dataset.brand;
+          syncBrandPills(btn.dataset.brand);
+          applyFilters();
+        });
+      });
     }
 
-    function updateModalCompareButton() {
-      if (!selectedModalItem) return;
-      const isCompared = compareSkus.includes(selectedModalItem.sku);
-      document.getElementById("modalCompareBtnText").textContent = isCompared ? "✓ Dibandingkan" : "Bandingkan";
+    function syncBrandPills(selectedBrand) {
+      document.querySelectorAll(".brand-pill").forEach((pill) => {
+        pill.classList.toggle("active", pill.dataset.brand === selectedBrand);
+      });
     }
 
-    function clearCompare() {
-      compareSkus = [];
-      updateCompareBar();
-      renderProducts();
-      updateModalCompareButton();
-    }
+    // 5. Banner Slider
+    function renderBanners() {
+      const banners = allProducts.filter((p) => p.bannerSlider);
+      const section = document.getElementById("bannerSection");
+      const track = document.getElementById("bannerTrack");
 
-    function updateCompareBar() {
-      const bar = document.getElementById("floatingCompareBar");
-      const countEl = document.getElementById("floatingCompareCount");
-      if (compareSkus.length > 0) {
-        bar.classList.remove("hidden");
-        countEl.textContent = `${compareSkus.length} / 3 Unit`;
-      } else {
-        bar.classList.add("hidden");
-      }
-    }
-
-    function openCompareModal() {
-      const items = compareSkus
-        .map(sku => allProducts.find(p => p.sku === sku))
-        .filter(Boolean);
-
-      if (items.length < 2) {
-        showToast("Pilih minimal 2 produk untuk dibandingkan");
+      if (!banners.length) {
+        section.style.display = "none";
         return;
       }
 
-      const lowestPrice = Math.min(...items.map(i => i.finalPrice));
-      const calc12m = (price, schemeKey) => {
-        const s = CONFIG.LEASING_SCHEMES[schemeKey];
-        const pPrice = Math.round(price * (1 + s.markupPct / 100));
-        const total = pPrice + (pPrice * (s.monthlyRate / 100) * 12) + Math.round(pPrice * (s.adminPct / 100)) + s.adminFixed;
-        return Math.ceil(total / 12 / 1000) * 1000;
-      };
-
-      const colHeaders = items.map(item => `
-        <th class="p-3 text-left align-top min-w-[200px] bg-slate-50 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-700">
-          <div class="space-y-2">
-            <img src="${item.images[0]}" onerror="this.onerror=null;this.src='${escapeAttr(item.fallbackImg)}'" alt="${escapeHtml(item.title)}"
-              class="w-full h-28 object-contain bg-white rounded-xl p-2 border border-slate-200 dark:border-slate-700" />
-            <span class="block text-[10px] font-mono text-slate-500 dark:text-slate-400">${escapeHtml(item.sku)} • ${escapeHtml(item.brand)}</span>
-            <p class="text-xs font-extrabold text-slate-900 dark:text-white line-clamp-2 leading-snug">${escapeHtml(item.title)}</p>
-          </div>
-        </th>
-      `).join("");
-
-      const rows = [
-        {
-          label: "Harga Toko",
-          cells: items.map(item => {
-            const isCheapest = item.finalPrice === lowestPrice;
-            return `
-              <div class="space-y-1">
-                ${item.hasPricePromo ? `<span class="block text-[11px] line-through text-slate-400">${formatRupiah(item.normalPrice)}</span>` : ""}
-                <span class="block text-sm font-extrabold ${isCheapest ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-900 dark:text-white'}">
-                  ${formatRupiah(item.finalPrice)}
-                </span>
-                ${isCheapest ? `<span class="inline-block px-2 py-0.5 text-[10px] font-bold bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 rounded">Paling Hemat</span>` : ""}
-              </div>
-            `;
-          })
-        },
-        {
-          label: "Spesifikasi",
-          cells: items.map(item => {
-            if (!item.specLines.length) return `<span class="text-slate-400 italic">Cek detail di toko</span>`;
-            return `<ul class="list-disc pl-4 space-y-1 text-[11px] text-slate-700 dark:text-slate-200">${item.specLines.map(s => `<li>${escapeHtml(s)}</li>`).join("")}</ul>`;
-          })
-        },
-        {
-          label: "Promo Aktif",
-          cells: items.map(item => item.promoInfo || item.promoDetail
-            ? `<span class="text-[11px] font-semibold text-blue-700 dark:text-blue-300">${escapeHtml(item.promoInfo || item.promoDetail)}</span>`
-            : `<span class="text-slate-400">-</span>`)
-        },
-        {
-          label: "Est. Cicilan 12x (Indodana)",
-          cells: items.map(item => item.finalPrice > CONFIG.MIN_INSTALLMENT_PRICE
-            ? `<span class="font-bold text-slate-800 dark:text-slate-100">${formatRupiah(calc12m(item.finalPrice, "indodana"))}/bln</span>`
-            : `<span class="text-[11px] text-slate-400 italic">Khusus harga &gt; 1 Juta</span>`)
-        },
-        {
-          label: "Est. Cicilan 12x (Home Credit)",
-          cells: items.map(item => item.finalPrice > CONFIG.MIN_INSTALLMENT_PRICE
-            ? `<span class="font-bold text-slate-800 dark:text-slate-100">${formatRupiah(calc12m(item.finalPrice, "hci"))}/bln</span>`
-            : `<span class="text-[11px] text-slate-400 italic">Khusus harga &gt; 1 Juta</span>`)
-        },
-        {
-          label: "Stok & Aksi",
-          cells: items.map(item => `
-            <div class="space-y-2">
-              <span class="block text-[11px] font-semibold text-emerald-600 dark:text-emerald-400">Stok: ${item.stock} unit</span>
-              <div class="flex gap-1.5">
-                <button type="button" onclick="closeCompareModal(); openProductModal('${escapeAttr(item.sku)}')"
-                  class="flex-1 py-1.5 px-2 rounded-lg text-[11px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:bg-slate-200">
-                  Detail
-                </button>
-                <button type="button" onclick="addToCart('${escapeAttr(item.sku)}')"
-                  class="flex-1 py-1.5 px-2 rounded-lg text-[11px] font-bold bg-blue-600 hover:bg-blue-700 text-white">
-                  + Keranjang
-                </button>
-              </div>
+      section.style.display = "block";
+      track.innerHTML = banners
+        .slice(0, 4)
+        .map(
+          (p) => `
+          <div class="banner-card" onclick="openProductModal('${encodeURIComponent(p.sku || p.title)}')">
+            <img src="${p.images[0]}" alt="${p.title}" onerror="this.src='${CONFIG.PLACEHOLDER_IMG}'" />
+            <div>
+              <span class="banner-tag">${p.infoPromo || "🔥 PROMO PILIHAN"}</span>
+              <h3>${p.title}</h3>
+              <div class="banner-price">${formatRupiah(p.finalPrice)}</div>
             </div>
-          `)
+          </div>
+        `
+        )
+        .join("");
+    }
+
+    // 6. Filter & Render Produk
+    function applyFilters() {
+      const keyword = document.getElementById("searchInput").value.trim().toLowerCase();
+      const cat = document.getElementById("categoryFilter").value;
+      const brand = document.getElementById("brandFilter").value;
+      const tag = document.getElementById("tagFilter").value;
+      const sort = document.getElementById("sortFilter").value;
+
+      syncBrandPills(brand);
+
+      filteredProducts = allProducts.filter((p) => {
+        if (cat !== "ALL" && p.type !== cat) return false;
+        if (brand !== "ALL" && p.brand !== brand) return false;
+        if (tag === "PROMO" && !(p.promoPrice > 0 && p.promoPrice < p.price)) return false;
+        if (tag === "BEST" && !p.bestSeller) return false;
+
+        if (keyword) {
+          const hay = `${p.title} ${p.type} ${p.brand} ${p.sku} ${p.spec}`.toLowerCase();
+          if (!hay.includes(keyword)) return false;
         }
-      ];
+        return true;
+      });
 
-      document.getElementById("compareTableContainer").innerHTML = `
-        <table class="w-full border-collapse text-xs">
-          <thead>
-            <tr>
-              <th class="p-3 text-left w-36 bg-slate-50 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 font-bold">Kriteria</th>
-              ${colHeaders}
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-slate-200 dark:divide-slate-800">
-            ${rows.map(r => `
-              <tr>
-                <td class="p-3 font-bold text-slate-600 dark:text-slate-300 align-top bg-slate-50/50 dark:bg-slate-900/50">${r.label}</td>
-                ${r.cells.map(c => `<td class="p-3 align-top">${c}</td>`).join("")}
-              </tr>
-            `).join("")}
-          </tbody>
-        </table>
-      `;
-
-      document.getElementById("compareModal").classList.remove("hidden");
-    }
-
-    function closeCompareModal() {
-      document.getElementById("compareModal").classList.add("hidden");
-    }
-
-    // ==========================================
-    // FITUR KERANJANG BELANJA WHATSAPP MULTI-PRODUK
-    // ==========================================
-    function saveCart() {
-      localStorage.setItem("pc_cart", JSON.stringify(cart));
-    }
-
-    function syncCartWithCatalog() {
-      if (!allProducts.length) return;
-      const validCart = [];
-      for (const entry of cart) {
-        const product = allProducts.find(p => p.sku === entry.sku);
-        if (product && product.stock > 0 && product.finalPrice > 0) {
-          validCart.push({
-            sku: product.sku,
-            qty: Math.min(Math.max(1, entry.qty), product.stock)
-          });
-        }
+      if (sort === "PRICE_ASC") {
+        filteredProducts.sort((a, b) => a.finalPrice - b.finalPrice);
+      } else if (sort === "PRICE_DESC") {
+        filteredProducts.sort((a, b) => b.finalPrice - a.finalPrice);
+      } else if (sort === "VIEWS_DESC") {
+        filteredProducts.sort((a, b) => b.views - a.views);
       }
-      cart = validCart;
-      saveCart();
-      renderCart();
+
+      renderProducts();
     }
 
-    function addToCart(sku, event) {
-      if (event) event.stopPropagation();
-      const product = allProducts.find(p => p.sku === sku);
+    function renderProducts() {
+      const grid = document.getElementById("productGrid");
+      const stateEl = document.getElementById("stateMessage");
+      const countEl = document.getElementById("resultCount");
+
+      countEl.textContent = `Menampilkan ${filteredProducts.length} produk tersedia`;
+
+      if (!filteredProducts.length) {
+        grid.innerHTML = "";
+        stateEl.style.display = "block";
+        stateEl.textContent = "Tidak ada produk yang cocok dengan filter pencarian.";
+        return;
+      }
+
+      stateEl.style.display = "none";
+      grid.innerHTML = filteredProducts
+        .map((p) => {
+          const hasPromo = p.promoPrice > 0 && p.promoPrice < p.price;
+          const key = encodeURIComponent(p.sku || p.title);
+          return `
+            <article class="product-card">
+              <div class="product-thumb" onclick="openProductModal('${key}')">
+                <div class="badges">
+                  ${hasPromo ? `<span class="badge badge-promo">${p.infoPromo || "PROMO"}</span>` : ""}
+                  ${p.bestSeller ? `<span class="badge badge-best">BEST SELLER</span>` : ""}
+                </div>
+                <img src="${p.images[0]}" alt="${p.title}" loading="lazy" onerror="this.src='${CONFIG.PLACEHOLDER_IMG}'" />
+                <span class="views-chip">👁 ${p.views}</span>
+              </div>
+              <div class="product-body">
+                <div class="product-cat">${p.type} • ${p.brand}</div>
+                <h3 class="product-title" onclick="openProductModal('${key}')">${p.title}</h3>
+                <div class="product-sku">SKU: ${p.sku || "-"} • Stok: ${p.stock}</div>
+                <div class="price-block">
+                  ${hasPromo ? `<div class="price-old">${formatRupiah(p.price)}</div>` : ""}
+                  <div class="price-main">${formatRupiah(p.finalPrice)}</div>
+                  ${p.detailPromo ? `<div class="promo-note">${p.detailPromo}</div>` : ""}
+                </div>
+                <div class="card-actions">
+                  <button class="btn btn-outline" onclick="openProductModal('${key}')">Detail</button>
+                  <button class="btn btn-primary" onclick="addToCart('${key}')">+ Keranjang</button>
+                </div>
+              </div>
+            </article>
+          `;
+        })
+        .join("");
+    }
+
+    // 7. Modal Detail Produk & Simulasi Cicilan
+    function openProductModal(encodedKey) {
+      const key = decodeURIComponent(encodedKey);
+      const product = allProducts.find((p) => (p.sku || p.title) === key);
       if (!product) return;
 
-      const existing = cart.find(c => c.sku === sku);
-      if (existing) {
-        if (existing.qty >= product.stock) {
-          showToast(`Stok maksimal ${product.stock} unit sudah di keranjang`);
-          return;
-        }
-        existing.qty += 1;
-      } else {
-        cart.push({ sku: product.sku, qty: 1 });
+      activeProduct = product;
+      trackProductView(product);
+
+      const hasPromo = product.promoPrice > 0 && product.promoPrice < product.price;
+      document.getElementById("modalCat").textContent = `${product.type} • ${product.brand}`;
+      document.getElementById("modalTitle").textContent = product.title;
+      document.getElementById("modalSku").textContent = `Nomor SKU: ${product.sku || "-"}`;
+      document.getElementById("modalOldPrice").textContent = hasPromo
+        ? formatRupiah(product.price)
+        : "";
+      document.getElementById("modalPrice").textContent = formatRupiah(product.finalPrice);
+      document.getElementById("modalPromoDetail").textContent = product.detailPromo || "";
+      document.getElementById("modalStock").textContent = `Unit dalam persediaan: ${product.stock} unit`;
+      document.getElementById("modalSpec").textContent =
+        product.spec || "Hubungi admin Planet Computer untuk detail spesifikasi lengkap.";
+
+      const mainImg = document.getElementById("modalMainImg");
+      mainImg.src = product.images[0];
+      mainImg.onerror = () => (mainImg.src = CONFIG.PLACEHOLDER_IMG);
+
+      const thumbsEl = document.getElementById("modalThumbs");
+      thumbsEl.innerHTML =
+        product.images.length > 1
+          ? product.images
+              .map(
+                (url, idx) => `
+              <img src="${url}" class="${idx === 0 ? "active" : ""}"
+                onclick="selectGalleryImg(this, '${url}')"
+                onerror="this.style.display='none'" />
+            `
+              )
+              .join("")
+          : "";
+
+      updateInstallment();
+
+      const waText = encodeURIComponent(
+        `Halo Planet Computer Sumedang, saya tertarik dengan produk:\n*${product.title}*\nSKU: ${product.sku || "-"}\nHarga: ${formatRupiah(product.finalPrice)}\nApakah unit masih tersedia?`
+      );
+
+      let actionsHtml = `
+        <a class="mp-btn mp-wa" href="https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${waText}" target="_blank" rel="noopener">
+          💬 Tanya via WhatsApp
+        </a>
+        <button class="btn btn-outline" onclick="addToCart('${encodeURIComponent(product.sku || product.title)}')">
+          🛒 + Keranjang
+        </button>
+        <button class="btn btn-outline" onclick="copyProductLink('${encodeURIComponent(product.sku || product.title)}')">
+          🔗 Salin Link
+        </button>
+      `;
+
+      if (product.shopee) {
+        actionsHtml += `<a class="mp-btn mp-shopee" href="${product.shopee}" target="_blank" rel="noopener">Shopee</a>`;
+      }
+      if (product.tokopedia) {
+        actionsHtml += `<a class="mp-btn mp-tokped" href="${product.tokopedia}" target="_blank" rel="noopener">Tokopedia</a>`;
       }
 
-      saveCart();
-      renderCart();
-      showToast(`"${product.title}" ditambahkan ke keranjang`);
+      document.getElementById("modalActions").innerHTML = actionsHtml;
+      document.getElementById("detailModal").classList.add("open");
     }
 
-    function addSelectedToCart() {
-      if (!selectedModalItem) return;
-      addToCart(selectedModalItem.sku);
+    function selectGalleryImg(el, url) {
+      document.getElementById("modalMainImg").src = url;
+      document.querySelectorAll("#modalThumbs img").forEach((img) => img.classList.remove("active"));
+      el.classList.add("active");
     }
 
-    function updateCartQty(sku, delta) {
-      const idx = cart.findIndex(c => c.sku === sku);
-      if (idx === -1) return;
+    function updateInstallment() {
+      if (!activeProduct) return;
+      const partner = document.getElementById("leasingPartner").value;
+      const tenor = parseInt(document.getElementById("leasingTenor").value, 10);
+      const base = activeProduct.finalPrice;
+      const resultEl = document.getElementById("installmentResult");
 
-      const product = allProducts.find(p => p.sku === sku);
-      const maxStock = product ? product.stock : 99;
-      const nextQty = cart[idx].qty + delta;
-
-      if (nextQty <= 0) {
-        cart.splice(idx, 1);
-      } else if (nextQty > maxStock) {
-        showToast(`Stok tersedia hanya ${maxStock} unit`);
+      if (partner === "DEBIT" || tenor === 1) {
+        resultEl.textContent = `Estimasi Pembayaran Penuh / 1x: ${formatRupiah(base)}`;
         return;
-      } else {
-        cart[idx].qty = nextQty;
       }
 
+      // Estimasi margin bulanan & biaya admin standar partner pembiayaan
+      const rateMap = {
+        INDODANA: 0.025,
+        KREDIVO: 0.026,
+        HCI: 0.029
+      };
+      const adminFee = partner === "HCI" ? 199000 : 50000;
+      const monthlyRate = rateMap[partner] || 0.025;
+      const totalWithInterest = base + adminFee + base * monthlyRate * tenor;
+      const perMonth = Math.ceil(totalWithInterest / tenor / 1000) * 1000;
+
+      resultEl.textContent = `Estimasi ${tenor}x: ${formatRupiah(perMonth)} / bulan (syarat & ketentuan berlaku)`;
+    }
+
+    function copyProductLink(encodedKey) {
+      const url = `${window.location.origin}${window.location.pathname}?sku=${encodedKey}`;
+      navigator.clipboard.writeText(url).then(() => {
+        alert("Link produk berhasil disalin!");
+      });
+    }
+
+    function checkUrlSkuParam() {
+      const params = new URLSearchParams(window.location.search);
+      const sku = params.get("sku");
+      if (sku) openProductModal(sku);
+    }
+
+    function trackProductView(product) {
+      if (!CONFIG.APPS_SCRIPT_URL || !product.sku) return;
+      fetch(`${CONFIG.APPS_SCRIPT_URL}?sku=${encodeURIComponent(product.sku)}`, {
+        method: "POST",
+        mode: "no-cors"
+      }).catch(() => {});
+    }
+
+    // 8. Keranjang WhatsApp Multi-Produk
+    function saveCart() {
+      localStorage.setItem("pc_sumedang_cart", JSON.stringify(cart));
+      updateCartBadge();
+    }
+
+    function updateCartBadge() {
+      const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+      document.getElementById("cartCount").textContent = totalQty;
+    }
+
+    function addToCart(encodedKey) {
+      const key = decodeURIComponent(encodedKey);
+      const product = allProducts.find((p) => (p.sku || p.title) === key);
+      if (!product) return;
+
+      const existing = cart.find((c) => c.key === key);
+      if (existing) {
+        if (existing.qty < product.stock) existing.qty++;
+      } else {
+        cart.push({
+          key,
+          title: product.title,
+          sku: product.sku,
+          price: product.finalPrice,
+          qty: 1
+        });
+      }
       saveCart();
       renderCart();
     }
 
-    function removeFromCart(sku) {
-      cart = cart.filter(c => c.sku !== sku);
+    function changeCartQty(index, delta) {
+      cart[index].qty += delta;
+      if (cart[index].qty <= 0) cart.splice(index, 1);
       saveCart();
       renderCart();
-    }
-
-    function clearCart() {
-      cart = [];
-      saveCart();
-      renderCart();
-      showToast("Keranjang dikosongkan");
-    }
-
-    function openCartDrawer() {
-      renderCart();
-      document.getElementById("cartDrawer").classList.remove("hidden");
-    }
-
-    function closeCartDrawer() {
-      document.getElementById("cartDrawer").classList.add("hidden");
     }
 
     function renderCart() {
       const container = document.getElementById("cartItemsContainer");
-      const footer = document.getElementById("cartFooter");
-      const clearBtn = document.getElementById("clearCartBtn");
-      const floatingBtn = document.getElementById("floatingCartBtn");
-      const mobileBadge = document.getElementById("headerCartBadgeMobile");
-      const desktopBadge = document.getElementById("headerCartBadgeDesktop");
+      const totalEl = document.getElementById("cartTotalText");
 
-      let totalQty = 0;
-      let grandTotal = 0;
-
-      const detailedItems = cart.map(entry => {
-        const product = allProducts.find(p => p.sku === entry.sku);
-        if (!product) return null;
-        const subtotal = product.finalPrice * entry.qty;
-        totalQty += entry.qty;
-        grandTotal += subtotal;
-        return { ...entry, product, subtotal };
-      }).filter(Boolean);
-
-      desktopBadge.textContent = totalQty;
-      if (totalQty > 0) {
-        mobileBadge.textContent = totalQty;
-        mobileBadge.classList.remove("hidden");
-        floatingBtn.classList.remove("hidden");
-        document.getElementById("floatingCartCount").textContent = totalQty;
-        document.getElementById("floatingCartTotal").textContent = formatRupiah(grandTotal);
-      } else {
-        mobileBadge.classList.add("hidden");
-        floatingBtn.classList.add("hidden");
-      }
-
-      if (detailedItems.length === 0) {
-        footer.classList.add("hidden");
-        clearBtn.classList.add("hidden");
-        container.innerHTML = `
-          <div class="h-full flex flex-col items-center justify-center text-center py-12 px-4 space-y-2">
-            <p class="text-sm font-bold text-slate-700 dark:text-slate-200">Keranjang masih kosong</p>
-            <p class="text-xs text-slate-500 dark:text-slate-400">Ketuk tombol <strong>+ Keranjang</strong> pada produk untuk mengumpulkan pesanan Anda.</p>
-          </div>
-        `;
+      if (!cart.length) {
+        container.innerHTML = `<p style="color: var(--text-muted); padding: 16px 0;">Keranjang masih kosong.</p>`;
+        totalEl.textContent = "Rp 0";
         return;
       }
 
-      footer.classList.remove("hidden");
-      clearBtn.classList.remove("hidden");
-      document.getElementById("cartTotalQty").textContent = totalQty;
-      document.getElementById("cartGrandTotal").textContent = formatRupiah(grandTotal);
-
-      container.innerHTML = detailedItems.map(({ sku, qty, product, subtotal }) => `
-        <div class="bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl p-3 flex gap-3">
-          <img src="${product.images[0]}" onerror="this.onerror=null;this.src='${escapeAttr(product.fallbackImg)}'" alt="${escapeHtml(product.title)}"
-            class="w-14 h-14 object-contain bg-white rounded-lg border border-slate-200 dark:border-slate-700 flex-shrink-0 p-1" />
-          <div class="min-w-0 flex-1 space-y-1">
-            <div class="flex items-start justify-between gap-2">
-              <h4 class="text-xs font-bold text-slate-900 dark:text-white line-clamp-2 leading-snug">${escapeHtml(product.title)}</h4>
-              <button type="button" onclick="removeFromCart('${escapeAttr(sku)}')" aria-label="Hapus item"
-                class="text-[11px] text-rose-600 dark:text-rose-400 hover:underline flex-shrink-0">
-                Hapus
-              </button>
-            </div>
-            <p class="text-[10px] font-mono text-slate-500 dark:text-slate-400">SKU: ${escapeHtml(sku)} • ${formatRupiah(product.finalPrice)}/unit</p>
-            <div class="flex items-center justify-between pt-1">
-              <div class="inline-flex items-center border border-slate-300 dark:border-slate-600 rounded-lg overflow-hidden bg-white dark:bg-slate-900">
-                <button type="button" onclick="updateCartQty('${escapeAttr(sku)}', -1)" class="px-2.5 py-0.5 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">-</button>
-                <span class="px-2.5 py-0.5 text-xs font-extrabold text-slate-900 dark:text-white">${qty}</span>
-                <button type="button" onclick="updateCartQty('${escapeAttr(sku)}', 1)" class="px-2.5 py-0.5 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">+</button>
-              </div>
-              <span class="text-xs font-extrabold text-blue-600 dark:text-blue-400">${formatRupiah(subtotal)}</span>
-            </div>
-          </div>
-        </div>
-      `).join("");
-    }
-
-    function checkoutCartWa() {
-      if (!cart.length) return;
-
-      let lines = [];
-      let totalQty = 0;
       let grandTotal = 0;
-
-      cart.forEach((entry, index) => {
-        const product = allProducts.find(p => p.sku === entry.sku);
-        if (!product) return;
-        const subtotal = product.finalPrice * entry.qty;
-        totalQty += entry.qty;
-        grandTotal += subtotal;
-        lines.push(
-          `${index + 1}. *${product.title}*\n   SKU: ${product.sku} | ${entry.qty}x @ ${formatRupiah(product.finalPrice)} = *${formatRupiah(subtotal)}*`
-        );
-      });
-
-      const paymentMethod = document.getElementById("cartPaymentMethod").value;
-      const buyerNote = document.getElementById("cartBuyerNote").value.trim();
-
-      let message = `Halo Sales *${CONFIG.STORE_NAME}* (${CONFIG.STORE_BRANCH}), saya ingin menanyakan ketersediaan & memesan produk berikut:\n\n`;
-      message += lines.join("\n\n");
-      message += `\n\n*Total Unit:* ${totalQty} unit`;
-      message += `\n*Total Estimasi:* ${formatRupiah(grandTotal)}`;
-      message += `\n*Rencana Pembayaran:* ${paymentMethod}`;
-      if (buyerNote) {
-        message += `\n*Catatan:* ${buyerNote}`;
-      }
-      message += `\n\nApakah semua stok produk di atas ready di toko?`;
-
-      const waUrl = `https://wa.me/${CONFIG.WHATSAPP_SALES}?text=${encodeURIComponent(message)}`;
-      window.open(waUrl, "_blank", "noopener,noreferrer");
-    }
-
-    // ==========================================
-    // FITUR SALIN LINK LANGSUNG KE PRODUK
-    // ==========================================
-    function getDirectProductUrl(sku) {
-      const url = new URL(window.location.href);
-      url.searchParams.set("sku", sku);
-      return url.toString();
-    }
-
-    function copySelectedProductLink() {
-      if (!selectedModalItem) return;
-      const shareUrl = getDirectProductUrl(selectedModalItem.sku);
-      const labelEl = document.getElementById("modalCopyLinkText");
-
-      const onCopied = () => {
-        labelEl.textContent = "Tersalin!";
-        showToast("Link produk berhasil disalin ke clipboard");
-        setTimeout(() => {
-          labelEl.textContent = "Salin Link";
-        }, 2200);
-      };
-
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(shareUrl).then(onCopied).catch(() => fallbackCopyText(shareUrl, onCopied));
-      } else {
-        fallbackCopyText(shareUrl, onCopied);
-      }
-    }
-
-    function fallbackCopyText(text, callback) {
-      const tempInput = document.createElement("textarea");
-      tempInput.value = text;
-      tempInput.style.position = "fixed";
-      tempInput.style.opacity = "0";
-      document.body.appendChild(tempInput);
-      tempInput.select();
-      try {
-        document.execCommand("copy");
-        if (callback) callback();
-      } catch (e) {
-        showToast("Gagal menyalin link otomatis");
-      }
-      document.body.removeChild(tempInput);
-    }
-
-    // ==========================================
-    // LOAD DATA KATALOG CSV (SHEET 1 + LINK SHOPEE & TOKOPEDIA + FALLBACK PROFIL TOKO)
-    // ==========================================
-    function loadCatalog() {
-      const cacheBusterUrl = CONFIG.SHEET_CSV_URL + (CONFIG.SHEET_CSV_URL.includes("?") ? "&" : "?") + "t=" + Date.now();
-
-      Papa.parse(cacheBusterUrl, {
-        download: true,
-        header: true,
-        skipEmptyLines: true,
-        complete: function(results) {
-          allProducts = results.data
-            .map((rawRow, idx) => {
-              const row = {};
-              Object.keys(rawRow).forEach(k => {
-                row[k.trim().toUpperCase()] = rawRow[k];
-              });
-
-              const title = (row["JUDUL PRODUK"] || row["NAMA PRODUK"] || "Produk Tanpa Nama").trim();
-              const rawCategory = row["TIPE PRODUK"] || row["KATEGORI"] || "";
-              const category = detectProductType(rawCategory, title);
-              const fallbackImg = getFallbackImageByType(category);
-
-              const normalPrice = parseNumber(row["HARGA"] || row["HARGA NORMAL"]);
-              const promoPrice = parseNumber(row["HARGA PROMO"]);
-              const hasPricePromo = promoPrice > 0 && promoPrice < normalPrice;
-              const discountPct = hasPricePromo ? Math.round(((normalPrice - promoPrice) / normalPrice) * 100) : 0;
-
-              const promoInfo = (row["INFO PROMO"] || "").trim();
-              const promoDetail = (row["DETAIL PROMO"] || "").trim();
-              const specsRaw = (row["SPESIFIKASI"] || row["DESKRIPSI"] || row["SPEK"] || "").trim();
-              const hasNonPricePromo = promoInfo.length > 0;
-              const images = parseImages(row["LINK GAMBAR"] || row["GAMBAR"], fallbackImg);
-
-              const bestSellerRaw = (row["BEST SELLER"] || "").trim().toUpperCase();
-              const bannerUrl = (row["BANNER SLIDER"] || "").trim();
-              const explicitRank = /^[1-5]$/.test(bestSellerRaw) ? parseInt(bestSellerRaw, 10) : 99;
-
-              const specificShopeeUrl = normalizeUrl(row["LINK SHOPEE"] || row["SHOPEE"]);
-              const specificTokopediaUrl = normalizeUrl(row["LINK TOKOPEDIA"] || row["TOKOPEDIA"]);
-              const shopeeUrl = specificShopeeUrl || normalizeUrl(CONFIG.DEFAULT_SHOPEE_URL);
-              const tokopediaUrl = specificTokopediaUrl || normalizeUrl(CONFIG.DEFAULT_TOKOPEDIA_URL);
-
-              return {
-                sku: (row["NOMOR SKU"] || row["SKU"] || `SKU-${idx}`).trim(),
-                title,
-                brand: detectBrand(title),
-                category,
-                fallbackImg,
-                normalPrice,
-                promoPrice,
-                hasPricePromo,
-                hasNonPricePromo,
-                hasAnyPromo: hasPricePromo || hasNonPricePromo,
-                promoInfo,
-                promoDetail,
-                specsRaw,
-                specLines: parseSpecLines(specsRaw),
-                discountPct,
-                finalPrice: hasPricePromo ? promoPrice : normalPrice,
-                stock: parseNumber(row["UNIT DALAM PERSEDIAAN"] || row["STOK"]),
-                images,
-                isBestSeller: bestSellerRaw === "YA" || explicitRank <= 5,
-                bannerUrl,
-                sliderRank: explicitRank,
-                shopeeUrl,
-                tokopediaUrl,
-                hasSpecificShopee: Boolean(specificShopeeUrl),
-                hasSpecificTokopedia: Boolean(specificTokopediaUrl),
-                views: parseNumber(row["TOTAL DILIHAT"] || row["VIEWS"]) || Math.floor(Math.random() * 25) + 8
-              };
-            })
-            .filter(p => p.stock > 0 && p.finalPrice > 0);
-
-          syncCartWithCatalog();
-          initSlider();
-          initMostViewed();
-          initCategories();
-          initBrandOptions();
-          renderProducts();
-
-          const urlParams = new URLSearchParams(window.location.search);
-          const sharedSku = urlParams.get("sku");
-          if (sharedSku) {
-            const targetProduct = allProducts.find(p => p.sku.toLowerCase() === sharedSku.trim().toLowerCase());
-            if (targetProduct) {
-              openProductModal(targetProduct.sku);
-            } else {
-              showToast("Produk pada tautan sedang kosong atau tidak tersedia");
-            }
-          }
-        },
-        error: function() {
-          document.getElementById("productGrid").innerHTML =
-            `<div class="col-span-full text-center py-10 text-rose-600">Gagal memuat data CSV. Pastikan Google Sheets sudah di-Publish to Web sebagai CSV.</div>`;
-        }
-      });
-    }
-
-    // 1. LANDING PAGE SLIDER (GABUNGAN BANNER PROMO NON-PRODUK + PRODUK UNGGULAN)
-    function initSlider() {
-      const sliderEl = document.getElementById("heroSlider");
-      const dotsEl = document.getElementById("sliderDots");
-
-      const customSlides = (CONFIG.CUSTOM_BANNERS || [])
-        .filter(b => b && b.active)
-        .map((b, idx) => ({
-          isCustomBanner: true,
-          sliderRank: typeof b.rank === "number" ? b.rank : idx + 1,
-          badge: b.badge || "PROMO SPESIAL",
-          badgeColor: b.badgeColor || "bg-rose-600 text-white",
-          title: b.title || "",
-          subtitle: b.subtitle || "",
-          imageUrl: b.imageUrl || CONFIG.TYPE_FALLBACK_IMAGES.DEFAULT,
-          fullImage: Boolean(b.fullImage),
-          buttonText: b.buttonText || "Tanya Info Promo",
-          targetUrl: normalizeUrl(b.linkUrl) ||
-            `https://wa.me/${CONFIG.WHATSAPP_SALES}?text=${encodeURIComponent(b.waText || `Halo Sales *${CONFIG.STORE_NAME}* (${CONFIG.STORE_BRANCH}), saya ingin info mengenai ${b.title}.`)}`
-        }));
-
-      const productSlides = allProducts
-        .filter(p => p.bannerUrl || p.isBestSeller || p.hasAnyPromo)
-        .sort((a, b) => {
-          if (a.sliderRank !== b.sliderRank) return a.sliderRank - b.sliderRank;
-          const aHasBanner = a.bannerUrl ? 0 : 1;
-          const bHasBanner = b.bannerUrl ? 0 : 1;
-          if (aHasBanner !== bHasBanner) return aHasBanner - bHasBanner;
-          const aHasPromo = a.hasPricePromo ? 0 : 1;
-          const bHasPromo = b.hasPricePromo ? 0 : 1;
-          if (aHasPromo !== bHasPromo) return aHasPromo - bHasPromo;
-          const aBest = a.isBestSeller ? 0 : 1;
-          const bBest = b.isBestSeller ? 0 : 1;
-          return aBest - bBest;
-        })
-        .slice(0, 5)
-        .map(p => ({ ...p, isCustomBanner: false }));
-
-      let combinedSlides = [...customSlides, ...productSlides]
-        .sort((a, b) => {
-          if (a.sliderRank !== b.sliderRank) return a.sliderRank - b.sliderRank;
-          if (a.isCustomBanner !== b.isCustomBanner) return a.isCustomBanner ? -1 : 1;
-          return 0;
-        })
-        .slice(0, 6);
-
-      if (combinedSlides.length === 0) {
-        combinedSlides = allProducts.slice(0, 3).map(p => ({ ...p, isCustomBanner: false }));
-      }
-
-      slideCount = combinedSlides.length;
-      if (slideCount === 0) return;
-
-      sliderEl.innerHTML = combinedSlides.map((item) => {
-        if (item.isCustomBanner) {
-          if (item.fullImage) {
-            return `
-              <div class="min-w-full relative bg-slate-900 flex items-center justify-center">
-                <a href="${escapeAttr(item.targetUrl)}" target="_blank" rel="noopener noreferrer" class="block w-full">
-                  <img src="${escapeAttr(item.imageUrl)}" onerror="this.onerror=null;this.src='${escapeAttr(CONFIG.TYPE_FALLBACK_IMAGES.DEFAULT)}'" alt="${escapeHtml(item.title)}"
-                    class="w-full h-56 md:h-80 object-cover" />
-                </a>
-                <a href="${escapeAttr(item.targetUrl)}" target="_blank" rel="noopener noreferrer"
-                  class="absolute bottom-4 right-4 z-10 px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-lg transition">
-                  ${escapeHtml(item.buttonText)} &rarr;
-                </a>
-              </div>
-            `;
-          }
-
+      container.innerHTML = cart
+        .map((item, idx) => {
+          const sub = item.price * item.qty;
+          grandTotal += sub;
           return `
-            <div class="min-w-full relative grid grid-cols-1 md:grid-cols-2 items-center p-5 sm:p-6 md:p-10 gap-5 sm:gap-6 bg-gradient-to-r from-blue-950 via-slate-900 to-indigo-950 text-white">
-              <div class="space-y-2.5 sm:space-y-3 z-10">
-                <div class="flex flex-wrap items-center gap-2">
-                  <span class="px-2.5 py-1 text-[11px] sm:text-xs font-bold uppercase rounded-md ${escapeAttr(item.badgeColor)}">${escapeHtml(item.badge)}</span>
-                  <span class="text-[11px] sm:text-xs text-blue-200 font-medium">${escapeHtml(CONFIG.STORE_NAME)} • ${escapeHtml(CONFIG.STORE_BRANCH)}</span>
-                </div>
-                <h2 class="text-xl sm:text-2xl md:text-3xl font-extrabold leading-tight">${escapeHtml(item.title)}</h2>
-                ${item.subtitle ? `<p class="text-xs md:text-sm text-slate-300 leading-relaxed">${escapeHtml(item.subtitle)}</p>` : ""}
-                <div class="pt-1">
-                  <a href="${escapeAttr(item.targetUrl)}" target="_blank" rel="noopener noreferrer"
-                    class="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs sm:text-sm rounded-xl shadow-md transition">
-                    <span>${escapeHtml(item.buttonText)}</span>
-                    <span>&rarr;</span>
-                  </a>
+            <div class="cart-item">
+              <div>
+                <strong>${item.title}</strong>
+                <div style="font-size: 12px; color: var(--text-muted);">
+                  ${formatRupiah(item.price)} x ${item.qty}
                 </div>
               </div>
-              <div class="flex justify-center">
-                <img src="${escapeAttr(item.imageUrl)}" onerror="this.onerror=null;this.src='${escapeAttr(CONFIG.TYPE_FALLBACK_IMAGES.DEFAULT)}'" alt="${escapeHtml(item.title)}"
-                  class="h-44 sm:h-48 md:h-64 w-full object-contain rounded-xl drop-shadow-2xl" />
+              <div class="qty-controls">
+                <button onclick="changeCartQty(${idx}, -1)">-</button>
+                <span>${item.qty}</span>
+                <button onclick="changeCartQty(${idx}, 1)">+</button>
               </div>
             </div>
           `;
-        }
+        })
+        .join("");
 
-        let badgeHtml = `<span class="px-2.5 py-1 text-[11px] sm:text-xs font-bold uppercase rounded-md bg-amber-500 text-slate-950">BEST SELLER</span>`;
-        if (item.hasPricePromo) {
-          badgeHtml = `<span class="px-2.5 py-1 text-[11px] sm:text-xs font-bold uppercase rounded-md bg-rose-600 text-white">DISKON ${item.discountPct}%</span>`;
-        } else if (item.hasNonPricePromo) {
-          badgeHtml = `<span class="px-2.5 py-1 text-[11px] sm:text-xs font-bold uppercase rounded-md bg-blue-600 text-white">${escapeHtml(item.promoInfo)}</span>`;
-        }
-
-        return `
-          <div class="min-w-full relative grid grid-cols-1 md:grid-cols-2 items-center p-5 sm:p-6 md:p-10 gap-5 sm:gap-6 bg-gradient-to-r from-slate-900 via-slate-800 to-blue-950 text-white">
-            <div class="space-y-2.5 sm:space-y-3 z-10">
-              <div class="flex flex-wrap items-center gap-2">
-                ${badgeHtml}
-                ${item.hasPricePromo && item.hasNonPricePromo ? `<span class="px-2.5 py-1 text-[11px] sm:text-xs font-bold rounded-md bg-blue-600 text-white">${escapeHtml(item.promoInfo)}</span>` : ""}
-                <span class="text-[11px] sm:text-xs text-slate-300">${escapeHtml(item.category)}</span>
-              </div>
-              <h2 class="text-xl sm:text-2xl md:text-3xl font-extrabold leading-tight line-clamp-2">${escapeHtml(item.title)}</h2>
-              ${item.specsRaw ? `<p class="text-xs text-slate-300 line-clamp-1">${escapeHtml(item.specsRaw)}</p>` : ""}
-              <div class="flex items-baseline gap-2.5 sm:gap-3 flex-wrap">
-                <span class="text-xl sm:text-2xl md:text-3xl font-bold text-amber-400">${formatRupiah(item.finalPrice)}</span>
-                ${item.hasPricePromo ? `<span class="text-xs sm:text-sm line-through text-slate-400">${formatRupiah(item.normalPrice)}</span>` : ""}
-              </div>
-              <div class="pt-1 flex flex-wrap gap-2">
-                <button onclick="openProductModal('${escapeAttr(item.sku)}')" class="px-4 sm:px-5 py-2 sm:py-2.5 bg-white text-slate-900 font-semibold text-xs sm:text-sm rounded-xl hover:bg-blue-50 transition">
-                  Lihat Detail${item.finalPrice > CONFIG.MIN_INSTALLMENT_PRICE ? " &amp; Simulasi" : ""}
-                </button>
-                <button onclick="addToCart('${escapeAttr(item.sku)}', event)" class="px-3.5 sm:px-4 py-2 sm:py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs sm:text-sm rounded-xl transition">
-                  + Keranjang
-                </button>
-              </div>
-            </div>
-            <div class="flex justify-center">
-              <img src="${item.bannerUrl || item.images[0]}" onerror="this.onerror=null;this.src='${escapeAttr(item.fallbackImg)}'" alt="${escapeHtml(item.title)}"
-                class="h-44 sm:h-48 md:h-64 w-full object-contain rounded-xl drop-shadow-2xl" />
-            </div>
-          </div>
-        `;
-      }).join("");
-
-      dotsEl.innerHTML = combinedSlides.map((_, i) => `
-        <button onclick="goToSlide(${i})" aria-label="Slide ${i + 1}" class="h-2.5 rounded-full transition ${i === 0 ? 'bg-white w-6' : 'bg-white/40 w-2.5'}"></button>
-      `).join("");
-
-      setInterval(() => nextSlide(), 5000);
+      totalEl.textContent = formatRupiah(grandTotal);
     }
 
-    function updateSliderPosition() {
-      document.getElementById("heroSlider").style.transform = `translateX(-${currentSlide * 100}%)`;
-      const dots = document.getElementById("sliderDots").children;
-      Array.from(dots).forEach((dot, idx) => {
-        dot.className = `h-2.5 rounded-full transition-all ${idx === currentSlide ? 'bg-white w-6' : 'bg-white/40 w-2.5'}`;
-      });
-    }
+    // 9. Event Listeners & Init
+    document.getElementById("searchInput").addEventListener("input", applyFilters);
+    document.getElementById("categoryFilter").addEventListener("change", applyFilters);
+    document.getElementById("brandFilter").addEventListener("change", applyFilters);
+    document.getElementById("tagFilter").addEventListener("change", applyFilters);
+    document.getElementById("sortFilter").addEventListener("change", applyFilters);
+    document.getElementById("leasingPartner").addEventListener("change", updateInstallment);
+    document.getElementById("leasingTenor").addEventListener("change", updateInstallment);
 
-    function nextSlide() { if (slideCount) { currentSlide = (currentSlide + 1) % slideCount; updateSliderPosition(); } }
-    function prevSlide() { if (slideCount) { currentSlide = (currentSlide - 1 + slideCount) % slideCount; updateSliderPosition(); } }
-    function goToSlide(idx) { currentSlide = idx; updateSliderPosition(); }
+    document.getElementById("closeDetailModal").addEventListener("click", () => {
+      document.getElementById("detailModal").classList.remove("open");
+    });
 
-    // 2. BARU SAJA DILIHAT PEMBELI LAIN
-    function initMostViewed() {
-      const topViewed = [...allProducts].sort((a, b) => b.views - a.views).slice(0, 6);
-      if (topViewed.length === 0) return;
+    document.getElementById("openCartBtn").addEventListener("click", () => {
+      renderCart();
+      document.getElementById("cartModal").classList.add("open");
+    });
 
-      document.getElementById("mostViewedSection").classList.remove("hidden");
-      document.getElementById("mostViewedContainer").innerHTML = topViewed.map((item, i) => `
-        <div onclick="openProductModal('${escapeAttr(item.sku)}')"
-          class="min-w-[225px] max-w-[225px] sm:min-w-[235px] sm:max-w-[235px] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-2.5 sm:p-3 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:border-blue-400 dark:hover:border-blue-600 hover:shadow-md transition">
-          <img src="${item.images[0]}" onerror="this.onerror=null;this.src='${escapeAttr(item.fallbackImg)}'" alt="${escapeHtml(item.title)}" class="w-14 h-14 sm:w-16 sm:h-16 object-contain rounded-lg bg-slate-50 dark:bg-slate-800 flex-shrink-0" />
-          <div class="min-w-0">
-            <span class="inline-block text-[10px] font-semibold text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/70 px-1.5 py-0.5 rounded mb-1">
-              👁️ Dilihat ${item.views}x ${i === 0 ? '• Baru saja' : ''}
-            </span>
-            <h4 class="text-xs font-bold text-slate-800 dark:text-slate-100 truncate">${escapeHtml(item.title)}</h4>
-            <p class="text-xs font-bold text-blue-600 dark:text-blue-400 mt-0.5">${formatRupiah(item.finalPrice)}</p>
-          </div>
-        </div>
-      `).join("");
-    }
+    document.getElementById("closeCartModal").addEventListener("click", () => {
+      document.getElementById("cartModal").classList.remove("open");
+    });
 
-    // 3. MENU DROPDOWN FILTER TIPE PRODUK & MEREK
-    function initCategories() {
-      const categories = ["SEMUA", ...new Set(allProducts.map(p => p.category).filter(Boolean))];
-      const typeSelect = document.getElementById("typeFilter");
-      typeSelect.innerHTML = categories.map(cat => {
-        const count = cat === "SEMUA"
-          ? allProducts.length
-          : allProducts.filter(p => p.category === cat).length;
-        const label = cat === "SEMUA" ? `Semua Tipe Produk (${count})` : `${cat} (${count})`;
-        return `<option value="${escapeHtml(cat)}">${escapeHtml(label)}</option>`;
-      }).join("");
-      typeSelect.value = categories.includes(activeCategory) ? activeCategory : "SEMUA";
-    }
-
-    function initBrandOptions() {
-      const select = document.getElementById("brandFilter");
-      const currentVal = select.value;
-
-      const optionsHtml = [`<option value="ALL">Semua Merek (${allProducts.length})</option>`];
-      CONFIG.SUPPORTED_BRANDS.forEach(brand => {
-        const count = allProducts.filter(p => p.brand === brand).length;
-        const suffix = count > 0 ? ` (${count})` : "";
-        optionsHtml.push(`<option value="${brand}">${brand}${suffix}</option>`);
+    document.getElementById("checkoutWaBtn").addEventListener("click", () => {
+      if (!cart.length) return;
+      let total = 0;
+      const lines = cart.map((item, i) => {
+        const sub = item.price * item.qty;
+        total += sub;
+        return `${i + 1}. ${item.title} (${item.qty}x) - ${formatRupiah(sub)}`;
       });
 
-      select.innerHTML = optionsHtml.join("");
-      if (CONFIG.SUPPORTED_BRANDS.includes(currentVal)) {
-        select.value = currentVal;
-      }
-    }
-
-    function setCategory(cat) {
-      activeCategory = cat || "SEMUA";
-      const typeSelect = document.getElementById("typeFilter");
-      if (typeSelect) typeSelect.value = activeCategory;
-      renderProducts();
-    }
-
-    function resetAllFilters() {
-      activeCategory = "SEMUA";
-      document.getElementById("searchInput").value = "";
-      document.getElementById("typeFilter").value = "SEMUA";
-      document.getElementById("brandFilter").value = "ALL";
-      document.getElementById("priceRangeFilter").value = "all";
-      document.getElementById("promoOnlyFilter").checked = false;
-      document.getElementById("sortSelect").value = "default";
-      renderProducts();
-    }
-
-    // 4. GRID PRODUK UTAMA (TAMPILAN MOBILE RAPI 2 BARIS ANTI-TERPOTONG)
-    function renderProducts() {
-      const keyword = document.getElementById("searchInput").value.toLowerCase().trim();
-      const selectedBrand = document.getElementById("brandFilter").value;
-      const priceRange = document.getElementById("priceRangeFilter").value;
-      const promoOnly = document.getElementById("promoOnlyFilter").checked;
-      const sortBy = document.getElementById("sortSelect").value;
-
-      const hasActiveFilter =
-        activeCategory !== "SEMUA" ||
-        selectedBrand !== "ALL" ||
-        priceRange !== "all" ||
-        promoOnly ||
-        keyword !== "";
-      document.getElementById("resetFilterBtn").classList.toggle("hidden", !hasActiveFilter);
-
-      const filtered = allProducts.filter(p => {
-        const matchCat = activeCategory === "SEMUA" || p.category === activeCategory;
-        const matchBrand = selectedBrand === "ALL" || p.brand === selectedBrand;
-        const matchSearch = p.title.toLowerCase().includes(keyword) ||
-          p.sku.toLowerCase().includes(keyword) ||
-          p.category.toLowerCase().includes(keyword) ||
-          p.brand.toLowerCase().includes(keyword) ||
-          p.promoInfo.toLowerCase().includes(keyword) ||
-          p.specsRaw.toLowerCase().includes(keyword);
-        const matchPromo = !promoOnly || p.hasPricePromo;
-
-        let matchPrice = true;
-        if (priceRange === "installment_eligible") {
-          matchPrice = p.finalPrice > CONFIG.MIN_INSTALLMENT_PRICE;
-        } else if (priceRange === "under_5m") {
-          matchPrice = p.finalPrice < 5000000;
-        } else if (priceRange === "5m_10m") {
-          matchPrice = p.finalPrice >= 5000000 && p.finalPrice <= 10000000;
-        } else if (priceRange === "above_10m") {
-          matchPrice = p.finalPrice > 10000000;
-        }
-
-        return matchCat && matchBrand && matchSearch && matchPromo && matchPrice;
-      });
-
-      if (sortBy === "price_asc") {
-        filtered.sort((a, b) => a.finalPrice - b.finalPrice);
-      } else if (sortBy === "price_desc") {
-        filtered.sort((a, b) => b.finalPrice - a.finalPrice);
-      } else if (sortBy === "views_desc") {
-        filtered.sort((a, b) => b.views - a.views);
-      }
-
-      document.getElementById("productCount").textContent = filtered.length;
-      const grid = document.getElementById("productGrid");
-
-      if (filtered.length === 0) {
-        grid.innerHTML = `<div class="col-span-full text-center py-12 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 space-y-2">
-          <p>Produk tidak ditemukan sesuai filter yang dipilih.</p>
-          <button type="button" onclick="resetAllFilters()" class="px-4 py-1.5 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white transition">Tampilkan Semua Produk</button>
-        </div>`;
-        return;
-      }
-
-      grid.innerHTML = filtered.map(item => {
-        const stockBadge = item.stock <= 3
-          ? `<span class="text-[11px] font-semibold text-amber-600 dark:text-amber-400">Sisa ${item.stock} unit</span>`
-          : `<span class="text-[11px] font-medium text-emerald-600 dark:text-emerald-400">Stok: ${item.stock} unit</span>`;
-
-        const isCompared = compareSkus.includes(item.sku);
-        const hasMarketplace = item.shopeeUrl || item.tokopediaUrl;
-
-        return `
-          <div onclick="openProductModal('${escapeAttr(item.sku)}')"
-            class="group bg-white dark:bg-slate-900 rounded-2xl border ${isCompared ? 'border-blue-500 ring-2 ring-blue-500/20' : 'border-slate-200 dark:border-slate-800'} overflow-hidden hover:shadow-lg hover:border-blue-300 dark:hover:border-blue-600 transition cursor-pointer flex flex-col justify-between">
-            <div>
-              <div class="relative aspect-square bg-slate-100 dark:bg-slate-800/90 p-2.5 sm:p-3 flex items-center justify-center overflow-hidden">
-                <img src="${item.images[0]}" onerror="this.onerror=null;this.src='${escapeAttr(item.fallbackImg)}'" alt="${escapeHtml(item.title)}"
-                  class="w-full h-full object-contain rounded-lg group-hover:scale-105 transition duration-300" />
-                
-                <div class="absolute top-2 left-2 sm:top-2.5 sm:left-2.5 flex flex-col gap-1">
-                  ${item.hasPricePromo ? `<span class="bg-rose-600 text-white text-[9px] sm:text-[10px] font-bold px-1.5 sm:px-2 py-0.5 rounded-md shadow">DISKON -${item.discountPct}%</span>` : ""}
-                  ${item.isBestSeller ? `<span class="bg-amber-400 text-slate-950 text-[9px] sm:text-[10px] font-bold px-1.5 sm:px-2 py-0.5 rounded-md shadow">BEST SELLER</span>` : ""}
-                </div>
-
-                ${item.images.length > 1 ? `
-                  <span class="absolute top-2 right-2 sm:top-2.5 sm:right-2.5 bg-white/90 dark:bg-slate-900/90 text-slate-700 dark:text-slate-200 text-[9px] sm:text-[10px] font-bold px-1.5 sm:px-2 py-0.5 rounded-md shadow-xs">
-                    📷 ${item.images.length}
-                  </span>
-                ` : ""}
-
-                <span class="absolute bottom-2 right-2 bg-slate-900/75 text-white text-[9px] sm:text-[10px] px-2 py-0.5 rounded-full backdrop-blur-sm">
-                  👁️ ${item.views}x
-                </span>
-              </div>
-
-              <div class="p-2.5 sm:p-3.5 pb-1.5 sm:pb-2 space-y-1 sm:space-y-1.5">
-                <div class="flex items-center justify-between gap-1 text-[10px] sm:text-[11px] text-slate-400">
-                  <span class="font-medium text-blue-600 dark:text-blue-400 truncate">${escapeHtml(item.category)}${item.brand !== "Lainnya" ? ` • ${escapeHtml(item.brand)}` : ""}</span>
-                  <span class="truncate max-w-[45%]">${escapeHtml(item.sku)}</span>
-                </div>
-                <h3 class="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-100 line-clamp-2 leading-snug">${escapeHtml(item.title)}</h3>
-
-                ${item.specsRaw ? `
-                  <p class="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1">${escapeHtml(item.specsRaw)}</p>
-                ` : ""}
-
-                ${item.hasNonPricePromo ? `
-                  <div class="pt-0.5">
-                    <span class="inline-flex items-center gap-1 bg-blue-50 dark:bg-blue-950/70 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800 text-[10px] sm:text-[11px] font-semibold px-2 py-0.5 rounded-md">
-                      💳 ${escapeHtml(item.promoInfo)}
-                    </span>
-                  </div>
-                ` : ""}
-              </div>
-            </div>
-
-            <div class="px-2.5 sm:px-3.5 pb-2.5 sm:pb-3.5 pt-1 space-y-2">
-              <div>
-                ${item.hasPricePromo ? `<p class="text-[11px] sm:text-xs text-slate-400 line-through">${formatRupiah(item.normalPrice)}</p>` : ""}
-                <p class="text-sm sm:text-base font-extrabold ${item.hasPricePromo ? 'text-rose-600 dark:text-rose-400' : 'text-slate-900 dark:text-white'}">${formatRupiah(item.finalPrice)}</p>
-              </div>
-
-              ${hasMarketplace ? `
-                <div class="space-y-1">
-                  <div class="flex items-center gap-1.5 flex-wrap">
-                    ${item.shopeeUrl ? `
-                      <a href="${escapeAttr(item.shopeeUrl)}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()"
-                        title="${item.hasSpecificShopee ? 'Buka produk di Shopee' : 'Kunjungi toko resmi di Shopee'}"
-                        class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-orange-50 dark:bg-orange-950/70 text-orange-600 dark:text-orange-300 border border-orange-200 dark:border-orange-800 hover:bg-orange-100 transition">
-                        Shopee &#8599;
-                      </a>
-                    ` : ""}
-                    ${item.tokopediaUrl ? `
-                      <a href="${escapeAttr(item.tokopediaUrl)}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()"
-                        title="${item.hasSpecificTokopedia ? 'Buka produk di Tokopedia' : 'Kunjungi toko resmi di Tokopedia'}"
-                        class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-green-50 dark:bg-green-950/70 text-green-700 dark:text-green-300 border border-green-200 dark:border-green-800 hover:bg-green-100 transition">
-                        Tokopedia &#8599;
-                      </a>
-                    ` : ""}
-                  </div>
-                  <p class="text-[9px] sm:text-[10px] text-amber-700 dark:text-amber-300/90 leading-tight">
-                    *Klaim garansi pembelian online hanya via e-commerce (bukan offline toko).
-                  </p>
-                </div>
-              ` : ""}
-
-              <!-- BAGIAN STOK & TOMBOL AKSI (2 BARIS RAPI AGAR TIDAK TERPOTONG DI LAYAR HP) -->
-              <div class="pt-2 border-t border-slate-100 dark:border-slate-800 space-y-1.5">
-                <div class="flex items-center justify-between">
-                  ${stockBadge}
-                  <span class="text-[10px] text-slate-400 dark:text-slate-500">Tap untuk detail</span>
-                </div>
-                <div class="grid grid-cols-2 gap-1.5 w-full">
-                  <button type="button" onclick="toggleCompare('${escapeAttr(item.sku)}', event)" title="Bandingkan Produk"
-                    class="w-full py-1.5 px-1.5 rounded-lg text-[10px] sm:text-[11px] font-bold border text-center truncate transition ${
-                      isCompared
-                        ? 'bg-slate-900 dark:bg-amber-400 text-white dark:text-slate-950 border-slate-900 dark:border-amber-400'
-                        : 'bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border-slate-200 dark:border-slate-700 hover:bg-slate-100'
-                    }">
-                    ${isCompared ? '✓ Banding' : 'Bandingkan'}
-                  </button>
-                  <button type="button" onclick="addToCart('${escapeAttr(item.sku)}', event)"
-                    class="w-full py-1.5 px-1.5 rounded-lg text-[10px] sm:text-[11px] font-bold bg-blue-600 hover:bg-blue-700 text-white text-center truncate transition">
-                    + Keranjang
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        `;
-      }).join("");
-    }
-
-    // 5. MODAL DETAIL, GALERI MULTI-FOTO, SPESIFIKASI, CICILAN & MARKETPLACE
-    function selectModalGalleryImage(index) {
-      if (!selectedModalItem) return;
-      const imgs = selectedModalItem.images;
-      const modalImgEl = document.getElementById("modalImg");
-      modalImgEl.onerror = function () {
-        this.onerror = null;
-        this.src = selectedModalItem.fallbackImg;
-      };
-      modalImgEl.src = imgs[index] || selectedModalItem.fallbackImg;
-
-      const thumbsEl = document.getElementById("modalGalleryThumbs");
-      Array.from(thumbsEl.children).forEach((btn, idx) => {
-        btn.className = `w-12 h-12 rounded-lg border-2 p-0.5 bg-white overflow-hidden flex-shrink-0 transition ${
-          idx === index ? 'border-blue-600 ring-2 ring-blue-600/30' : 'border-slate-300 dark:border-slate-600 opacity-70 hover:opacity-100'
-        }`;
-      });
-    }
-
-    function openProductModal(sku) {
-      const item = allProducts.find(p => p.sku === sku);
-      if (!item) return;
-
-      selectedModalItem = item;
-      dpAmount = 0;
-      item.views += 1;
-
-      try {
-        const url = new URL(window.location.href);
-        url.searchParams.set("sku", item.sku);
-        window.history.replaceState({}, "", url);
-      } catch (e) {}
-
-      if (CONFIG.VIEW_TRACKER_WEBHOOK) {
-        fetch(`${CONFIG.VIEW_TRACKER_WEBHOOK}?action=trackView&sku=${encodeURIComponent(item.sku)}`, { mode: "no-cors" }).catch(() => {});
-      }
-
-      const modalImgEl = document.getElementById("modalImg");
-      modalImgEl.onerror = function () {
-        this.onerror = null;
-        this.src = item.fallbackImg;
-      };
-      modalImgEl.src = item.images[0];
-
-      const thumbsEl = document.getElementById("modalGalleryThumbs");
-      if (item.images.length > 1) {
-        thumbsEl.classList.remove("hidden");
-        thumbsEl.innerHTML = item.images.map((imgUrl, idx) => `
-          <button type="button" onclick="selectModalGalleryImage(${idx})"
-            class="w-12 h-12 rounded-lg border-2 p-0.5 bg-white overflow-hidden flex-shrink-0 transition ${
-              idx === 0 ? 'border-blue-600 ring-2 ring-blue-600/30' : 'border-slate-300 dark:border-slate-600 opacity-70 hover:opacity-100'
-            }">
-            <img src="${imgUrl}" onerror="this.onerror=null;this.src='${escapeAttr(item.fallbackImg)}'" alt="Foto ${idx + 1}" class="w-full h-full object-contain" />
-          </button>
-        `).join("");
-      } else {
-        thumbsEl.classList.add("hidden");
-        thumbsEl.innerHTML = "";
-      }
-
-      document.getElementById("modalCategory").textContent = item.brand !== "Lainnya"
-        ? `${item.category} • ${item.brand}`
-        : item.category;
-      document.getElementById("modalSku").textContent = `SKU: ${item.sku}`;
-      document.getElementById("modalTitle").textContent = item.title;
-      document.getElementById("modalViews").textContent = `👁️ Sudah dilihat ${item.views} kali`;
-      document.getElementById("modalStock").textContent = `Tersedia: ${item.stock} unit`;
-      document.getElementById("modalCopyLinkText").textContent = "Salin Link";
-      updateModalCompareButton();
-
-      document.getElementById("modalPriceBox").innerHTML = item.hasPricePromo
-        ? `<div class="flex items-baseline gap-2 flex-wrap">
-             <span class="text-2xl font-extrabold text-rose-600 dark:text-rose-400">${formatRupiah(item.finalPrice)}</span>
-             <span class="text-sm text-slate-400 line-through">${formatRupiah(item.normalPrice)}</span>
-             <span class="text-xs font-bold bg-rose-100 dark:bg-rose-950 text-rose-700 dark:text-rose-300 px-2 py-0.5 rounded">Hemat ${item.discountPct}%</span>
-           </div>`
-        : `<span class="text-2xl font-extrabold text-slate-900 dark:text-white">${formatRupiah(item.finalPrice)}</span>`;
-
-      const specsBox = document.getElementById("modalSpecsBox");
-      const specsList = document.getElementById("modalSpecsList");
-      if (item.specLines.length > 0) {
-        specsBox.classList.remove("hidden");
-        specsList.innerHTML = item.specLines.map(line => `<li>${escapeHtml(line)}</li>`).join("");
-      } else {
-        specsBox.classList.add("hidden");
-        specsList.innerHTML = "";
-      }
-
-      const promoBanner = document.getElementById("modalPromoBanner");
-      if (item.hasNonPricePromo || item.promoDetail) {
-        promoBanner.classList.remove("hidden");
-        document.getElementById("modalPromoBadge").textContent = item.promoInfo || "PROMO SPESIAL";
-        document.getElementById("modalPromoDetail").textContent = item.promoDetail || `Tersedia program ${item.promoInfo} untuk produk ini.`;
-      } else {
-        promoBanner.classList.add("hidden");
-      }
-
-      // Render Tombol Shopee & Tokopedia (Produk Spesifik atau Profil Toko) + Ketentuan Garansi Online
-      const marketplaceBox = document.getElementById("modalMarketplaceBox");
-      const marketplaceHint = document.getElementById("modalMarketplaceHint");
-      const marketplaceBtns = document.getElementById("modalMarketplaceButtons");
-      const mpLinks = [];
-
-      if (item.shopeeUrl) {
-        const shopeeLabel = item.hasSpecificShopee ? "Beli di Shopee" : "Cek di Shopee";
-        mpLinks.push(`
-          <a href="${escapeAttr(item.shopeeUrl)}" target="_blank" rel="noopener noreferrer"
-            class="inline-flex items-center justify-center gap-1.5 bg-[#EE4D2D] hover:bg-[#d73211] text-white text-xs font-bold py-2.5 px-3 rounded-xl shadow-xs transition">
-            <span>${shopeeLabel}</span>
-            <span>&#8599;</span>
-          </a>
-        `);
-      }
-      if (item.tokopediaUrl) {
-        const tokpedLabel = item.hasSpecificTokopedia ? "Beli di Tokopedia" : "Cek di Tokopedia";
-        mpLinks.push(`
-          <a href="${escapeAttr(item.tokopediaUrl)}" target="_blank" rel="noopener noreferrer"
-            class="inline-flex items-center justify-center gap-1.5 bg-[#03AC0E] hover:bg-[#028f0c] text-white text-xs font-bold py-2.5 px-3 rounded-xl shadow-xs transition">
-            <span>${tokpedLabel}</span>
-            <span>&#8599;</span>
-          </a>
-        `);
-      }
-
-      if (mpLinks.length > 0) {
-        marketplaceBox.classList.remove("hidden");
-        const isAllFallback = !item.hasSpecificShopee && !item.hasSpecificTokopedia;
-        marketplaceHint.textContent = isAllFallback
-          ? "Atau kunjungi Official Store online kami:"
-          : "Atau checkout online via Official Store kami:";
-        marketplaceBtns.className = mpLinks.length === 1 ? "grid grid-cols-1 gap-2" : "grid grid-cols-2 gap-2";
-        marketplaceBtns.innerHTML = mpLinks.join("");
-      } else {
-        marketplaceBox.classList.add("hidden");
-        marketplaceBtns.innerHTML = "";
-      }
-
-      const calcBox = document.getElementById("installmentCalcBox");
-      const nonInstallmentNotice = document.getElementById("nonInstallmentNotice");
-
-      // Syarat wajib: Harga produk harus DI ATAS Rp 1.000.000 baru bisa simulasi cicilan
-      if (item.finalPrice > CONFIG.MIN_INSTALLMENT_PRICE) {
-        isInstallmentActive = true;
-        calcBox.classList.remove("hidden");
-        nonInstallmentNotice.classList.add("hidden");
-        document.getElementById("dpNominalInput").value = "";
-
-        const combinedPromoText = (item.promoInfo + " " + item.promoDetail).toLowerCase();
-        if (combinedPromoText.includes("kredivo")) {
-          selectedLeasingKey = "kredivo";
-        } else if (combinedPromoText.includes("home credit") || combinedPromoText.includes("hci")) {
-          selectedLeasingKey = "hci";
-        } else if (combinedPromoText.includes("debit")) {
-          selectedLeasingKey = "debit";
-        } else {
-          selectedLeasingKey = "indodana";
-        }
-
-        selectLeasing(selectedLeasingKey);
-      } else {
-        isInstallmentActive = false;
-        calcBox.classList.add("hidden");
-        nonInstallmentNotice.classList.remove("hidden");
-        updateWaLink();
-      }
-
-      document.getElementById("productModal").classList.remove("hidden");
-    }
-
-    function getPartnerBasePrice(item, scheme) {
-      if (!item || !scheme) return 0;
-      return Math.round(item.finalPrice * (1 + scheme.markupPct / 100));
-    }
-
-    function selectDpPct(pct) {
-      if (!selectedModalItem) return;
-      const scheme = CONFIG.LEASING_SCHEMES[selectedLeasingKey];
-      const partnerPrice = getPartnerBasePrice(selectedModalItem, scheme);
-
-      dpAmount = Math.round(partnerPrice * (pct / 100));
-      const inputEl = document.getElementById("dpNominalInput");
-      inputEl.value = dpAmount > 0 ? dpAmount.toLocaleString("id-ID") : "";
-
-      renderDpPresets();
-      renderInstallmentResult();
-    }
-
-    function handleDpInput(el) {
-      if (!selectedModalItem) return;
-      const scheme = CONFIG.LEASING_SCHEMES[selectedLeasingKey];
-      const partnerPrice = getPartnerBasePrice(selectedModalItem, scheme);
-
-      let raw = parseNumber(el.value);
-      if (raw > partnerPrice) raw = partnerPrice;
-      dpAmount = raw;
-      el.value = dpAmount > 0 ? dpAmount.toLocaleString("id-ID") : "";
-
-      renderDpPresets();
-      renderInstallmentResult();
-    }
-
-    function renderDpPresets() {
-      if (!selectedModalItem) return;
-      const scheme = CONFIG.LEASING_SCHEMES[selectedLeasingKey];
-      const partnerPrice = getPartnerBasePrice(selectedModalItem, scheme);
-
-      const container = document.getElementById("dpPresetButtons");
-      container.innerHTML = CONFIG.DP_PRESETS.map(pct => {
-        const presetVal = Math.round(partnerPrice * (pct / 100));
-        const isActive = dpAmount === presetVal;
-        return `
-          <button type="button" onclick="selectDpPct(${pct})"
-            class="px-2 py-0.5 text-[10px] font-bold rounded border transition ${
-              isActive
-                ? "bg-blue-600 text-white border-blue-600"
-                : "bg-white dark:bg-slate-900 text-blue-700 dark:text-blue-300 border-blue-300 dark:border-slate-600 hover:bg-blue-50 dark:hover:bg-slate-800"
-            }">
-            ${pct}%
-          </button>
-        `;
-      }).join("");
-    }
-
-    function selectLeasing(key) {
-      selectedLeasingKey = key;
-      const scheme = CONFIG.LEASING_SCHEMES[key];
-      if (!scheme) return;
-
-      const tabsEl = document.getElementById("leasingTabs");
-      tabsEl.innerHTML = Object.entries(CONFIG.LEASING_SCHEMES).map(([k, val]) => `
-        <button type="button" onclick="selectLeasing('${k}')"
-          class="px-2 py-1.5 rounded-lg border text-center transition flex flex-col items-center justify-center ${
-            k === key
-              ? "bg-blue-600 text-white border-blue-600 shadow-sm"
-              : "bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 border-blue-200 dark:border-slate-700 hover:bg-blue-100/60 dark:hover:bg-slate-800"
-          }">
-          <span class="text-[11px] font-bold leading-tight">${val.name}</span>
-          <span class="text-[9px] ${k === key ? 'text-blue-100' : 'text-slate-400'}">${val.markupLabel}</span>
-        </button>
-      `).join("");
-
-      const dpSection = document.getElementById("dpSection");
-      const tenorSection = document.getElementById("tenorSection");
-
-      if (scheme.isDebit) {
-        dpSection.classList.add("hidden");
-        tenorSection.classList.add("hidden");
-        selectedTenor = 1;
-      } else {
-        dpSection.classList.remove("hidden");
-        tenorSection.classList.remove("hidden");
-        if (!scheme.tenors.includes(selectedTenor)) {
-          selectedTenor = scheme.tenors[scheme.tenors.length - 1];
-        }
-        renderDpPresets();
-        renderTenorButtons();
-      }
-
-      renderInstallmentResult();
-    }
-
-    function selectTenor(months) {
-      selectedTenor = months;
-      renderTenorButtons();
-      renderInstallmentResult();
-    }
-
-    function renderTenorButtons() {
-      const scheme = CONFIG.LEASING_SCHEMES[selectedLeasingKey];
-      const tenorEl = document.getElementById("tenorButtons");
-      tenorEl.innerHTML = scheme.tenors.map(m => `
-        <button type="button" onclick="selectTenor(${m})"
-          class="px-2.5 py-1 text-[11px] font-bold rounded-md border transition ${
-            m === selectedTenor
-              ? "bg-slate-900 dark:bg-blue-600 text-white border-slate-900 dark:border-blue-600"
-              : "bg-white dark:bg-slate-900 text-blue-700 dark:text-blue-300 border-blue-300 dark:border-slate-600 hover:bg-blue-50 dark:hover:bg-slate-800"
-          }">
-          ${m}x
-        </button>
-      `).join("");
-    }
-
-    function calculateInstallment() {
-      if (!selectedModalItem || !isInstallmentActive) return null;
-      const scheme = CONFIG.LEASING_SCHEMES[selectedLeasingKey];
-      const basePrice = selectedModalItem.finalPrice;
-      const partnerPrice = getPartnerBasePrice(selectedModalItem, scheme);
-      const markupNominal = partnerPrice - basePrice;
-
-      if (scheme.isDebit) {
-        return {
-          isDebit: true,
-          schemeName: scheme.name,
-          markupPct: scheme.markupPct,
-          basePrice,
-          partnerPrice,
-          markupNominal,
-          months: 1,
-          dp: 0,
-          principal: partnerPrice,
-          monthlyRate: 0,
-          adminFee: 0,
-          monthlyInstallment: partnerPrice
-        };
-      }
-
-      const safeDp = Math.min(Math.max(0, dpAmount), partnerPrice);
-      const principal = Math.max(0, partnerPrice - safeDp);
-      const months = selectedTenor;
-
-      if (principal === 0) {
-        return {
-          isDebit: false,
-          schemeName: scheme.name,
-          markupPct: scheme.markupPct,
-          basePrice,
-          partnerPrice,
-          markupNominal,
-          months,
-          dp: safeDp,
-          principal: 0,
-          monthlyRate: scheme.monthlyRate,
-          adminFee: 0,
-          monthlyInstallment: 0
-        };
-      }
-
-      const totalInterest = principal * (scheme.monthlyRate / 100) * months;
-      const adminFee = Math.round(principal * (scheme.adminPct / 100)) + scheme.adminFixed;
-      const totalPayable = principal + totalInterest + adminFee;
-      const monthlyInstallment = Math.ceil(totalPayable / months / 1000) * 1000;
-
-      return {
-        isDebit: false,
-        schemeName: scheme.name,
-        markupPct: scheme.markupPct,
-        basePrice,
-        partnerPrice,
-        markupNominal,
-        months,
-        dp: safeDp,
-        principal,
-        monthlyRate: scheme.monthlyRate,
-        adminFee,
-        monthlyInstallment
-      };
-    }
-
-    function renderInstallmentResult() {
-      const calc = calculateInstallment();
-      if (!calc) return;
-
-      const labelEl = document.getElementById("installmentResultLabel");
-      const resultEl = document.getElementById("installmentResult");
-      const partnerRowEl = document.getElementById("installmentPartnerPriceRow");
-      const principalRowEl = document.getElementById("installmentPrincipalRow");
-      const breakdownEl = document.getElementById("installmentBreakdown");
-
-      if (calc.isDebit) {
-        labelEl.textContent = "Estimasi Total Debit:";
-        resultEl.textContent = `${formatRupiah(calc.partnerPrice)} (1x Gesek)`;
-        partnerRowEl.innerHTML = `
-          <span>Harga Produk: <strong>${formatRupiah(calc.basePrice)}</strong></span>
-          <span>Charge Debit (${calc.markupPct}%): <strong>+${formatRupiah(calc.markupNominal)}</strong></span>
-        `;
-        principalRowEl.innerHTML = "";
-        breakdownEl.innerHTML = `<span>Metode: <strong>Kartu Debit (EDC Toko)</strong></span>`;
-      } else {
-        labelEl.textContent = "Estimasi Cicilan:";
-        resultEl.textContent = calc.principal === 0
-          ? "Lunas (DP 100%)"
-          : `${formatRupiah(calc.monthlyInstallment)} / bln (${calc.months}x)`;
-
-        const markupInfo = calc.markupPct > 0
-          ? `Harga ${calc.schemeName} (+${calc.markupPct}%): <strong>${formatRupiah(calc.partnerPrice)}</strong>`
-          : `Harga ${calc.schemeName} (Normal): <strong>${formatRupiah(calc.partnerPrice)}</strong>`;
-
-        partnerRowEl.innerHTML = `<span>${markupInfo}</span>`;
-        principalRowEl.innerHTML = `
-          <span>DP: <strong>${calc.dp === 0 ? "Rp 0" : formatRupiah(calc.dp)}</strong></span>
-          <span>Pokok Cicilan: <strong>${formatRupiah(calc.principal)}</strong></span>
-        `;
-        breakdownEl.innerHTML = `
-          <span>Est. Bunga: <strong>${calc.monthlyRate}%/bln</strong></span>
-          <span>Est. Admin: <strong>${calc.adminFee === 0 ? "Rp 0" : formatRupiah(calc.adminFee)}</strong></span>
-        `;
-      }
-
-      updateWaLink();
-    }
-
-    function updateWaLink() {
-      if (!selectedModalItem) return;
-      const item = selectedModalItem;
-
-      let promoLines = "";
-      if (item.hasNonPricePromo) {
-        promoLines += `\nPromo: *${item.promoInfo}*`;
-      }
-
-      const calc = calculateInstallment();
-      if (calc) {
-        if (calc.isDebit) {
-          promoLines += `\nMetode Bayar: *Debit Card (+${calc.markupPct}%) — Est. ${formatRupiah(calc.partnerPrice)}*`;
-        } else {
-          const markupTag = calc.markupPct > 0 ? ` (+${calc.markupPct}%)` : " (Harga Normal)";
-          const dpText = calc.dp > 0 ? `DP ${formatRupiah(calc.dp)}` : "Tanpa DP";
-          const cicilanText = calc.principal === 0
-            ? "Lunas Tunai (DP 100%)"
-            : `${calc.months}x (est. ${formatRupiah(calc.monthlyInstallment)}/bln)`;
-          promoLines += `\nSimulasi Cicilan: *${calc.schemeName}${markupTag} - ${dpText} | ${cicilanText}*`;
-        }
-        promoLines += `\n_(Catatan: Nominal di atas bersifat estimasi awal, cicilan aktual bisa lebih atau kurang mengikuti persetujuan & ketentuan partner)_`;
-      }
-
-      const waText = encodeURIComponent(
-        `Halo Sales *${CONFIG.STORE_NAME}* (${CONFIG.STORE_BRANCH}), saya tertarik dengan produk:\n*${item.title}*\nSKU: ${item.sku}\nHarga: ${formatRupiah(item.finalPrice)}${promoLines}\nApakah stoknya masih tersedia?`
+      const msg = encodeURIComponent(
+        `Halo Planet Computer Sumedang, saya ingin memesan produk berikut:\n\n${lines.join("\n")}\n\n*Total Estimasi: ${formatRupiah(total)}*\nMohon info ketersediaan stoknya.`
       );
-      document.getElementById("modalWaBtn").href = `https://wa.me/${CONFIG.WHATSAPP_SALES}?text=${waText}`;
-    }
-
-    function closeModal() {
-      document.getElementById("productModal").classList.add("hidden");
-      try {
-        const url = new URL(window.location.href);
-        url.searchParams.delete("sku");
-        window.history.replaceState({}, "", url);
-      } catch (e) {}
-      initMostViewed();
-      renderProducts();
-    }
-
-    // Tutup modal/drawer/compare dengan tombol Escape
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") {
-        if (!document.getElementById("productModal").classList.contains("hidden")) closeModal();
-        if (!document.getElementById("cartDrawer").classList.contains("hidden")) closeCartDrawer();
-        if (!document.getElementById("compareModal").classList.contains("hidden")) closeCompareModal();
-      }
+      window.open(`https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${msg}`, "_blank");
     });
 
-    document.getElementById("searchInput").addEventListener("input", renderProducts);
-    document.getElementById("typeFilter").addEventListener("change", function () {
-      setCategory(this.value);
+    document.getElementById("themeToggle").addEventListener("click", () => {
+      const html = document.documentElement;
+      const next = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      html.setAttribute("data-theme", next);
+      localStorage.setItem("pc_sumedang_theme", next);
     });
-    document.getElementById("brandFilter").addEventListener("change", renderProducts);
-    document.getElementById("priceRangeFilter").addEventListener("change", renderProducts);
-    document.getElementById("promoOnlyFilter").addEventListener("change", renderProducts);
-    document.getElementById("sortSelect").addEventListener("change", renderProducts);
 
-    renderCart();
+    const backToTop = document.getElementById("backToTop");
+    window.addEventListener("scroll", () => {
+      backToTop.style.display = window.scrollY > 300 ? "block" : "none";
+    });
+    backToTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+
+    // Init tema, status toko, link WA, dan data katalog
+    const savedTheme = localStorage.getItem("pc_sumedang_theme");
+    if (savedTheme) document.documentElement.setAttribute("data-theme", savedTheme);
+
+    document.getElementById("topWaLink").href = `https://wa.me/${CONFIG.WHATSAPP_NUMBER}`;
+    updateOperatingStatus();
+    setInterval(updateOperatingStatus, 60000);
+    updateCartBadge();
     loadCatalog();
-    //]]>
   </script>
 </body>
 </html>
