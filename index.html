@@ -226,7 +226,7 @@
           <span class="px-2 py-0.5 text-[10px] font-bold uppercase bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded" id="footerStoreBranch">Cabang Sumedang</span>
         </div>
         <p class="text-xs text-slate-500 dark:text-slate-400" id="footerStoreAddress">Jl. Mayor Abdurahman No. 225, Plaza Asia Lt. GF No. 19-20</p>
-        <p class="text-[11px] text-slate-400 dark:text-slate-500" id="footerStoreHours">Jam Operasional: Setiap Hari 09.00 – 21.00 WIB</p>
+        <p class="text-[11px] text-slate-400 dark:text-slate-500" id="footerStoreHours">Jam Operasional: Setiap Hari 09.00 – 20.45 WIB</p>
       </div>
 
       <div class="flex flex-wrap items-center justify-center gap-2">
@@ -521,14 +521,16 @@
       DEFAULT_TOKOPEDIA_URL: "https://tk.tokopedia.com/ZSsY1VMDY/",
 
       // Jam Operasional Toko (WIB / UTC+7)
-      STORE_OPEN_HOUR: 09,00
-      STORE_CLOSE_HOUR: 21,45
+      STORE_OPEN_HOUR: 9,
+      STORE_OPEN_MINUTE: 0,
+      STORE_CLOSE_HOUR: 20,
+      STORE_CLOSE_MINUTE: 45,
 
       // Minimal harga produk DI ATAS Rp 1.000.000 baru bisa simulasi cicilan
       MIN_INSTALLMENT_PRICE: 1000000,
 
       // Daftar Merek Utama untuk Deteksi Otomatis
-      SUPPORTED_BRANDS: ["ASUS", "Lenovo", "Acer", "HP", "Axioo", "MSI"],
+      SUPPORTED_BRANDS: ["ASUS", "Lenovo", "Acer", "HP", "Axioo", "MSI", "Dell", "Advan", "Zyrex", "Epson", "Brother"],
 
       // URL CSV Google Sheets (Sheet 1: Katalog_Produk)
       SHEET_CSV_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRxE80Pyis0tiaQ8b4INB3xIkDS4wfvQC_DRCrgnjWRaUQyJ7OD98O3jRqlYrcAMkqztFIhRtPqC0uJ/pub?gid=0&single=true&output=csv",
@@ -632,6 +634,9 @@
     // ==========================================
     // IDENTITAS TOKO, JAM BUKA WIB & KONTAK WA
     // ==========================================
+    const openTimeLabel = `${String(CONFIG.STORE_OPEN_HOUR).padStart(2, "0")}.${String(CONFIG.STORE_OPEN_MINUTE).padStart(2, "0")}`;
+    const closeTimeLabel = `${String(CONFIG.STORE_CLOSE_HOUR).padStart(2, "0")}.${String(CONFIG.STORE_CLOSE_MINUTE).padStart(2, "0")}`;
+
     document.title = `${CONFIG.STORE_NAME} - ${CONFIG.STORE_BRANCH} | Katalog Produk & Promo`;
     document.getElementById("storeTitle").textContent = CONFIG.STORE_NAME;
     document.getElementById("storeBranch").textContent = CONFIG.STORE_BRANCH;
@@ -642,7 +647,7 @@
     document.getElementById("footerStoreAddress").textContent = CONFIG.STORE_ADDRESS;
     document.getElementById("footerMapsBtn").href = CONFIG.STORE_MAPS_URL;
     document.getElementById("footerStoreHours").textContent =
-      `Jam Operasional: Setiap Hari ${String(CONFIG.STORE_OPEN_HOUR).padStart(2, "0")}.00 – ${String(CONFIG.STORE_CLOSE_HOUR).padStart(2, "0")}.00 WIB`;
+      `Jam Operasional: Setiap Hari ${openTimeLabel} – ${closeTimeLabel} WIB`;
 
     document.getElementById("footerWaSalesBtn").href =
       `https://wa.me/${CONFIG.WHATSAPP_SALES}?text=${encodeURIComponent(`Halo Sales *${CONFIG.STORE_NAME}* (${CONFIG.STORE_BRANCH}), saya ingin konsultasi pembelian laptop/komputer.`)}`;
@@ -653,18 +658,20 @@
       const now = new Date();
       const utcMs = now.getTime() + now.getTimezoneOffset() * 60000;
       const wibDate = new Date(utcMs + 7 * 3600000);
-      const wibHour = wibDate.getHours();
+      const wibMinutes = wibDate.getHours() * 60 + wibDate.getMinutes();
+      const openMinutes = CONFIG.STORE_OPEN_HOUR * 60 + CONFIG.STORE_OPEN_MINUTE;
+      const closeMinutes = CONFIG.STORE_CLOSE_HOUR * 60 + CONFIG.STORE_CLOSE_MINUTE;
 
       const badge = document.getElementById("storeStatusBadge");
       const text = document.getElementById("storeStatusText");
-      const isOpen = wibHour >= CONFIG.STORE_OPEN_HOUR && wibHour < CONFIG.STORE_CLOSE_HOUR;
+      const isOpen = wibMinutes >= openMinutes && wibMinutes < closeMinutes;
 
       if (isOpen) {
         badge.className = "inline-flex items-center gap-1.5 px-2 py-0.5 text-[10px] font-bold rounded-md bg-emerald-50 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800";
-        text.textContent = `Buka • Tutup ${String(CONFIG.STORE_CLOSE_HOUR).padStart(2, "0")}.00 WIB`;
+        text.textContent = `Buka • Tutup ${closeTimeLabel} WIB`;
       } else {
         badge.className = "inline-flex items-center gap-1.5 px-2 py-0.5 text-[10px] font-bold rounded-md bg-amber-50 dark:bg-amber-950/70 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800";
-        text.textContent = `Tutup • Buka ${String(CONFIG.STORE_OPEN_HOUR).padStart(2, "0")}.00 WIB`;
+        text.textContent = `Tutup • Buka ${openTimeLabel} WIB`;
       }
     }
     updateStoreOpenStatus();
@@ -1284,7 +1291,7 @@
                 views: parseNumber(row["TOTAL DILIHAT"] || row["VIEWS"]) || Math.floor(Math.random() * 25) + 8
               };
             })
-            .filter(p => p.stock > 0 && p.finalPrice > 0);
+            .filter(p => p.stock > 0 && p.finalPrice > 0 && p.category.trim().toUpperCase() !== "SPAREPART");
 
           syncCartWithCatalog();
           initSlider();
