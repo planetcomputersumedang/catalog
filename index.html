@@ -24,10 +24,6 @@
   <style>
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    /* Fallback blend ringan untuk foto berlatar putih dari server non-CORS */
-    html:not(.dark) img.pc-blend-white {
-      mix-blend-mode: multiply;
-    }
   </style>
 </head>
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 antialiased flex flex-col min-h-screen transition-colors duration-200">
@@ -380,7 +376,7 @@
       <!-- Area Foto Utama + Galeri Multi-Foto -->
       <div class="relative bg-slate-100 dark:bg-slate-800 flex-shrink-0">
         <div class="h-44 sm:h-48 flex items-center justify-center">
-          <img id="modalImg" src="" alt="" onload="handleSmartProductImg(this)" class="w-full h-full object-contain p-3" />
+          <img id="modalImg" src="" alt="" class="w-full h-full object-contain p-3" />
         </div>
         <div id="modalGalleryThumbs" class="hidden px-4 pb-2.5 flex items-center justify-center gap-2 overflow-x-auto no-scrollbar"></div>
         <button onclick="closeModal()" aria-label="Tutup modal" class="absolute top-3 right-3 bg-white/90 dark:bg-slate-900/90 hover:bg-white dark:hover:bg-slate-800 text-slate-800 dark:text-slate-100 w-8 h-8 rounded-full font-bold shadow">&times;</button>
@@ -530,23 +526,11 @@
       STORE_CLOSE_HOUR: 20,
       STORE_CLOSE_MINUTE: 45,
 
-      // ==========================================
-      // AUTO REMOVE BACKGROUND PRODUK OTOMATIS
-      // mode: "smart" (Canvas Transparan PNG untuk GitHub/CORS + fallback CSS blend),
-      //       "css" (ringan hanya CSS blend), atau "off" (nonaktif)
-      // ==========================================
-      AUTO_REMOVE_BG: {
-        ENABLED: true,
-        MODE: "smart",
-        BG_TOLERANCE: 28,      // Toleransi warna putih/abu studio di tepi gambar (15 - 45)
-        MAX_PROCESS_DIM: 480   // Ukuran maks pemrosesan agar tetap cepat & ringan di HP
-      },
-
       // Minimal harga produk DI ATAS Rp 1.000.000 baru bisa simulasi cicilan
       MIN_INSTALLMENT_PRICE: 1000000,
 
       // Daftar Merek Utama untuk Deteksi Otomatis
-      SUPPORTED_BRANDS: ["ASUS", "Lenovo", "Acer", "HP", "Axioo", "MSI", "Dell", "Advan", "Zyrex", "Epson", "Brother", "Logitech", "Micropack"],
+      SUPPORTED_BRANDS: ["ASUS", "Lenovo", "Acer", "HP", "Axioo", "MSI", "Dell", "Advan", "Zyrex", "Epson", "Brother", "Logitech", "Micropack", "TP-Link", "D-Link", "Corsair", "Aerocool", "Vention", "Rexus", "Armageddon", "Lexar", "Sandisk", "Seagate", "Toshiba", "MTech", "EYOTA", "Apacer", "Visipro", "Kingston", "Ruijie"],
 
       // URL CSV Google Sheets (Sheet 1: Katalog_Produk)
       SHEET_CSV_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRxE80Pyis0tiaQ8b4INB3xIkDS4wfvQC_DRCrgnjWRaUQyJ7OD98O3jRqlYrcAMkqztFIhRtPqC0uJ/pub?gid=0&single=true&output=csv",
@@ -648,205 +632,6 @@
     }
 
     // ==========================================
-    // ENGINE AUTO REMOVE BACKGROUND (CANVAS FLOOD-FILL + CORS SAFE)
-    // ==========================================
-    const bgRemovedCache = new Map();
-    const bgPendingJobs = new Map();
-
-    function extractTransparentPng(url) {
-      if (bgRemovedCache.has(url)) {
-        return Promise.resolve(bgRemovedCache.get(url));
-      }
-      if (bgPendingJobs.has(url)) {
-        return bgPendingJobs.get(url);
-      }
-
-      const job = new Promise((resolve) => {
-        const probe = new Image();
-        probe.crossOrigin = "anonymous";
-
-        probe.onload = function () {
-          try {
-            const origW = probe.naturalWidth || probe.width;
-            const origH = probe.naturalHeight || probe.height;
-            if (!origW || !origH) {
-              bgRemovedCache.set(url, null);
-              return resolve(null);
-            }
-
-            const maxDim = CONFIG.AUTO_REMOVE_BG.MAX_PROCESS_DIM || 480;
-            const scale = Math.min(1, maxDim / Math.max(origW, origH));
-            const w = Math.max(1, Math.round(origW * scale));
-            const h = Math.max(1, Math.round(origH * scale));
-
-            const canvas = document.createElement("canvas");
-            canvas.width = w;
-            canvas.height = h;
-            const ctx = canvas.getContext("2d", { willReadFrequently: true });
-            ctx.drawImage(probe, 0, 0, w, h);
-
-            const imgData = ctx.getImageData(0, 0, w, h);
-            const data = imgData.data;
-
-            // Cek apakah gambar sudah punya area transparan bawaan
-            let existingTransparent = 0;
-            const corners = [
-              [0, 0],
-              [w - 1, 0],
-              [0, h - 1],
-              [w - 1, h - 1]
-            ];
-
-            let lightCornerCount = 0;
-            let sumR = 0, sumG = 0, sumB = 0;
-
-            for (const [cx, cy] of corners) {
-              const idx = (cy * w + cx) * 4;
-              const r = data[idx], g = data[idx + 1], b = data[idx + 2], a = data[idx + 3];
-              if (a < 30) {
-                existingTransparent++;
-              } else if (r >= 220 && g >= 220 && b >= 220) {
-                lightCornerCount++;
-                sumR += r;
-                sumG += g;
-                sumB += b;
-              }
-            }
-
-            // Jika sudah transparan atau bukan background studio terang, biarkan asli
-            if (existingTransparent >= 2 || lightCornerCount < 2) {
-              bgRemovedCache.set(url, null);
-              return resolve(null);
-            }
-
-            const bgR = Math.round(sumR / lightCornerCount);
-            const bgG = Math.round(sumG / lightCornerCount);
-            const bgB = Math.round(sumB / lightCornerCount);
-
-            const tolerance = CONFIG.AUTO_REMOVE_BG.BG_TOLERANCE || 28;
-            const hardCutoff = tolerance * 0.65;
-
-            const visited = new Uint8Array(w * h);
-            const queue = new Int32Array(w * h);
-            let head = 0;
-            let tail = 0;
-
-            const colorDist = (pixelPos) => {
-              const dr = data[pixelPos] - bgR;
-              const dg = data[pixelPos + 1] - bgG;
-              const db = data[pixelPos + 2] - bgB;
-              return Math.sqrt(dr * dr + dg * dg + db * db);
-            };
-
-            const tryEnqueue = (x, y) => {
-              if (x < 0 || x >= w || y < 0 || y >= h) return;
-              const p = y * w + x;
-              if (visited[p]) return;
-              const pos = p * 4;
-              if (data[pos + 3] === 0) {
-                visited[p] = 1;
-                return;
-              }
-              const dist = colorDist(pos);
-              if (dist <= tolerance) {
-                visited[p] = 1;
-                queue[tail++] = p;
-              }
-            };
-
-            // Seed dari seluruh tepi luar gambar (BFS flood-fill agar bagian putih di dalam produk aman)
-            for (let x = 0; x < w; x++) {
-              tryEnqueue(x, 0);
-              tryEnqueue(x, h - 1);
-            }
-            for (let y = 1; y < h - 1; y++) {
-              tryEnqueue(0, y);
-              tryEnqueue(w - 1, y);
-            }
-
-            let removedPixels = 0;
-            while (head < tail) {
-              const p = queue[head++];
-              const pos = p * 4;
-              const dist = colorDist(pos);
-
-              if (dist <= hardCutoff) {
-                data[pos + 3] = 0;
-              } else {
-                // Feathering halus di tepi objek agar tidak bergerigi
-                const alphaRatio = (dist - hardCutoff) / Math.max(1, tolerance - hardCutoff);
-                data[pos + 3] = Math.round(data[pos + 3] * Math.min(1, Math.max(0, alphaRatio)));
-              }
-              removedPixels++;
-
-              const x = p % w;
-              const y = (p - x) / w;
-              tryEnqueue(x + 1, y);
-              tryEnqueue(x - 1, y);
-              tryEnqueue(x, y + 1);
-              tryEnqueue(x, y - 1);
-            }
-
-            // Pastikan minimal 4% area terhapus agar tidak membuang memori untuk foto tanpa background
-            if (removedPixels < (w * h) * 0.04) {
-              bgRemovedCache.set(url, null);
-              return resolve(null);
-            }
-
-            ctx.putImageData(imgData, 0, 0);
-            const cleanDataUrl = canvas.toDataURL("image/png");
-            bgRemovedCache.set(url, cleanDataUrl);
-            resolve(cleanDataUrl);
-          } catch (err) {
-            // Tainted canvas (server gambar tidak mengirim header CORS)
-            bgRemovedCache.set(url, null);
-            resolve(null);
-          }
-        };
-
-        probe.onerror = function () {
-          bgRemovedCache.set(url, null);
-          resolve(null);
-        };
-
-        probe.src = url;
-      }).finally(() => {
-        bgPendingJobs.delete(url);
-      });
-
-      bgPendingJobs.set(url, job);
-      return job;
-    }
-
-    function handleSmartProductImg(imgEl) {
-      if (!imgEl || !CONFIG.AUTO_REMOVE_BG || !CONFIG.AUTO_REMOVE_BG.ENABLED) return;
-      if (imgEl.dataset.bgDone === "1") return;
-
-      const currentSrc = imgEl.currentSrc || imgEl.src || "";
-      if (!currentSrc || currentSrc.startsWith("data:") || currentSrc.includes("placehold.co")) {
-        imgEl.dataset.bgDone = "1";
-        return;
-      }
-
-      imgEl.dataset.bgDone = "1";
-
-      if (CONFIG.AUTO_REMOVE_BG.MODE === "css") {
-        imgEl.classList.add("pc-blend-white");
-        return;
-      }
-
-      extractTransparentPng(currentSrc).then((cleanDataUrl) => {
-        if (cleanDataUrl) {
-          imgEl.classList.remove("pc-blend-white");
-          imgEl.src = cleanDataUrl;
-        } else {
-          // Fallback cerdas jika gambar non-CORS (mis. link eksternal marketplace/vendor)
-          imgEl.classList.add("pc-blend-white");
-        }
-      });
-    }
-
-    // ==========================================
     // IDENTITAS TOKO, JAM BUKA WIB & KONTAK WA
     // ==========================================
     const openTimeLabel = `${String(CONFIG.STORE_OPEN_HOUR).padStart(2, "0")}.${String(CONFIG.STORE_OPEN_MINUTE).padStart(2, "0")}`;
@@ -927,11 +712,6 @@
       if (/\b(hp|hewlett|pavilion|victus|omen|elitebook|probook|envy)\b/.test(t)) return "HP";
       if (/\b(axioo|pongo|mybook|hype)\b/.test(t)) return "Axioo";
       if (/\b(msi|katana|cyborg|thin|stealth|raider|modern|prestige)\b/.test(t)) return "MSI";
-      if (/\b(dell|inspiron|vostro|latitude|xps|alienware|precision)\b/.test(t)) return "Dell";
-      if (/\b(advan|workplus|workpro|soulmat|pixelwar|tbook)\b/.test(t)) return "Advan";
-      if (/\b(zyrex|sky|kintamani|cruiser|d-tech|maveric)\b/.test(t)) return "Zyrex";
-      if (/\b(epson|ecotank|workforce|expression)\b/.test(t)) return "Epson";
-      if (/\b(brother|dcp|mfc)\b/.test(t)) return "Brother";
       return "Lainnya";
     }
 
@@ -940,7 +720,7 @@
       if (cleaned) return cleaned;
 
       const t = String(title || "").toLowerCase();
-      if (/\b(laptop|notebook|macbook|vivobook|zenbook|expertbook|thinkpad|ideapad|legion|loq|yoga|aspire|nitro|predator|swift|extensa|travelmate|pavilion|victus|omen|elitebook|probook|pongo|mybook|hype|katana|cyborg|modern|prestige|rog|tuf|inspiron|vostro|latitude|xps|workplus|workpro)\b/.test(t)) {
+      if (/\b(laptop|notebook|macbook|vivobook|zenbook|expertbook|thinkpad|ideapad|legion|loq|yoga|aspire|nitro|predator|swift|extensa|travelmate|pavilion|victus|omen|elitebook|probook|pongo|mybook|hype|katana|cyborg|modern|prestige|rog|tuf)\b/.test(t)) {
         return "Laptop";
       }
       if (/\b(printer|epson|canon|brother|pixma|laserjet|inkjet|tinta|cartridge|toner)\b/.test(t)) {
@@ -1096,8 +876,8 @@
       const colHeaders = items.map(item => `
         <th class="p-3 text-left align-top min-w-[200px] bg-slate-50 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-700">
           <div class="space-y-2">
-            <img src="${item.images[0]}" onload="handleSmartProductImg(this)" onerror="this.dataset.bgDone='1';this.onerror=null;this.src='${escapeAttr(item.fallbackImg)}'" alt="${escapeHtml(item.title)}"
-              class="w-full h-28 object-contain bg-white dark:bg-slate-900 rounded-xl p-2 border border-slate-200 dark:border-slate-700" />
+            <img src="${item.images[0]}" onerror="this.onerror=null;this.src='${escapeAttr(item.fallbackImg)}'" alt="${escapeHtml(item.title)}"
+              class="w-full h-28 object-contain bg-white rounded-xl p-2 border border-slate-200 dark:border-slate-700" />
             <span class="block text-[10px] font-mono text-slate-500 dark:text-slate-400">${escapeHtml(item.sku)} • ${escapeHtml(item.brand)}</span>
             <p class="text-xs font-extrabold text-slate-900 dark:text-white line-clamp-2 leading-snug">${escapeHtml(item.title)}</p>
           </div>
@@ -1335,8 +1115,8 @@
 
       container.innerHTML = detailedItems.map(({ sku, qty, product, subtotal }) => `
         <div class="bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl p-3 flex gap-3">
-          <img src="${product.images[0]}" onload="handleSmartProductImg(this)" onerror="this.dataset.bgDone='1';this.onerror=null;this.src='${escapeAttr(product.fallbackImg)}'" alt="${escapeHtml(product.title)}"
-            class="w-14 h-14 object-contain bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700 flex-shrink-0 p-1" />
+          <img src="${product.images[0]}" onerror="this.onerror=null;this.src='${escapeAttr(product.fallbackImg)}'" alt="${escapeHtml(product.title)}"
+            class="w-14 h-14 object-contain bg-white rounded-lg border border-slate-200 dark:border-slate-700 flex-shrink-0 p-1" />
           <div class="min-w-0 flex-1 space-y-1">
             <div class="flex items-start justify-between gap-2">
               <h4 class="text-xs font-bold text-slate-900 dark:text-white line-clamp-2 leading-snug">${escapeHtml(product.title)}</h4>
@@ -1640,9 +1420,6 @@
           badgeHtml = `<span class="px-2.5 py-1 text-[11px] sm:text-xs font-bold uppercase rounded-md bg-blue-600 text-white">${escapeHtml(item.promoInfo)}</span>`;
         }
 
-        const sliderImgSrc = item.bannerUrl || item.images[0];
-        const useSmartBgOnSlide = !item.bannerUrl;
-
         return `
           <div class="min-w-full relative grid grid-cols-1 md:grid-cols-2 items-center p-5 sm:p-6 md:p-10 gap-5 sm:gap-6 bg-gradient-to-r from-slate-900 via-slate-800 to-blue-950 text-white">
             <div class="space-y-2.5 sm:space-y-3 z-10">
@@ -1667,7 +1444,7 @@
               </div>
             </div>
             <div class="flex justify-center">
-              <img src="${sliderImgSrc}" ${useSmartBgOnSlide ? 'onload="handleSmartProductImg(this)"' : ''} onerror="this.dataset.bgDone='1';this.onerror=null;this.src='${escapeAttr(item.fallbackImg)}'" alt="${escapeHtml(item.title)}"
+              <img src="${item.bannerUrl || item.images[0]}" onerror="this.onerror=null;this.src='${escapeAttr(item.fallbackImg)}'" alt="${escapeHtml(item.title)}"
                 class="h-44 sm:h-48 md:h-64 w-full object-contain rounded-xl drop-shadow-2xl" />
             </div>
           </div>
@@ -1702,7 +1479,7 @@
       document.getElementById("mostViewedContainer").innerHTML = topViewed.map((item, i) => `
         <div onclick="openProductModal('${escapeAttr(item.sku)}')"
           class="min-w-[225px] max-w-[225px] sm:min-w-[235px] sm:max-w-[235px] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-2.5 sm:p-3 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:border-blue-400 dark:hover:border-blue-600 hover:shadow-md transition">
-          <img src="${item.images[0]}" onload="handleSmartProductImg(this)" onerror="this.dataset.bgDone='1';this.onerror=null;this.src='${escapeAttr(item.fallbackImg)}'" alt="${escapeHtml(item.title)}" class="w-14 h-14 sm:w-16 sm:h-16 object-contain rounded-lg bg-slate-50 dark:bg-slate-800 flex-shrink-0 p-1" />
+          <img src="${item.images[0]}" onerror="this.onerror=null;this.src='${escapeAttr(item.fallbackImg)}'" alt="${escapeHtml(item.title)}" class="w-14 h-14 sm:w-16 sm:h-16 object-contain rounded-lg bg-slate-50 dark:bg-slate-800 flex-shrink-0" />
           <div class="min-w-0">
             <span class="inline-block text-[10px] font-semibold text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/70 px-1.5 py-0.5 rounded mb-1">
               👁️ Dilihat ${item.views}x ${i === 0 ? '• Baru saja' : ''}
@@ -1836,7 +1613,7 @@
             class="group bg-white dark:bg-slate-900 rounded-2xl border ${isCompared ? 'border-blue-500 ring-2 ring-blue-500/20' : 'border-slate-200 dark:border-slate-800'} overflow-hidden hover:shadow-lg hover:border-blue-300 dark:hover:border-blue-600 transition cursor-pointer flex flex-col justify-between">
             <div>
               <div class="relative aspect-square bg-slate-100 dark:bg-slate-800/90 p-2.5 sm:p-3 flex items-center justify-center overflow-hidden">
-                <img src="${item.images[0]}" onload="handleSmartProductImg(this)" onerror="this.dataset.bgDone='1';this.onerror=null;this.src='${escapeAttr(item.fallbackImg)}'" alt="${escapeHtml(item.title)}"
+                <img src="${item.images[0]}" onerror="this.onerror=null;this.src='${escapeAttr(item.fallbackImg)}'" alt="${escapeHtml(item.title)}"
                   class="w-full h-full object-contain rounded-lg group-hover:scale-105 transition duration-300" />
                 
                 <div class="absolute top-2 left-2 sm:top-2.5 sm:left-2.5 flex flex-col gap-1">
@@ -1938,10 +1715,7 @@
       if (!selectedModalItem) return;
       const imgs = selectedModalItem.images;
       const modalImgEl = document.getElementById("modalImg");
-      delete modalImgEl.dataset.bgDone;
-      modalImgEl.classList.remove("pc-blend-white");
       modalImgEl.onerror = function () {
-        this.dataset.bgDone = "1";
         this.onerror = null;
         this.src = selectedModalItem.fallbackImg;
       };
@@ -1949,7 +1723,7 @@
 
       const thumbsEl = document.getElementById("modalGalleryThumbs");
       Array.from(thumbsEl.children).forEach((btn, idx) => {
-        btn.className = `w-12 h-12 rounded-lg border-2 p-0.5 bg-white dark:bg-slate-900 overflow-hidden flex-shrink-0 transition ${
+        btn.className = `w-12 h-12 rounded-lg border-2 p-0.5 bg-white overflow-hidden flex-shrink-0 transition ${
           idx === index ? 'border-blue-600 ring-2 ring-blue-600/30' : 'border-slate-300 dark:border-slate-600 opacity-70 hover:opacity-100'
         }`;
       });
@@ -1974,10 +1748,7 @@
       }
 
       const modalImgEl = document.getElementById("modalImg");
-      delete modalImgEl.dataset.bgDone;
-      modalImgEl.classList.remove("pc-blend-white");
       modalImgEl.onerror = function () {
-        this.dataset.bgDone = "1";
         this.onerror = null;
         this.src = item.fallbackImg;
       };
@@ -1988,10 +1759,10 @@
         thumbsEl.classList.remove("hidden");
         thumbsEl.innerHTML = item.images.map((imgUrl, idx) => `
           <button type="button" onclick="selectModalGalleryImage(${idx})"
-            class="w-12 h-12 rounded-lg border-2 p-0.5 bg-white dark:bg-slate-900 overflow-hidden flex-shrink-0 transition ${
+            class="w-12 h-12 rounded-lg border-2 p-0.5 bg-white overflow-hidden flex-shrink-0 transition ${
               idx === 0 ? 'border-blue-600 ring-2 ring-blue-600/30' : 'border-slate-300 dark:border-slate-600 opacity-70 hover:opacity-100'
             }">
-            <img src="${imgUrl}" onload="handleSmartProductImg(this)" onerror="this.dataset.bgDone='1';this.onerror=null;this.src='${escapeAttr(item.fallbackImg)}'" alt="Foto ${idx + 1}" class="w-full h-full object-contain" />
+            <img src="${imgUrl}" onerror="this.onerror=null;this.src='${escapeAttr(item.fallbackImg)}'" alt="Foto ${idx + 1}" class="w-full h-full object-contain" />
           </button>
         `).join("");
       } else {
